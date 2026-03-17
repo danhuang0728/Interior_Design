@@ -1,12 +1,13 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import './Navbar.css'
 
 const navLinks = [
-    { label: '關於我們', href: '#' },
-    { label: '智能訂製全屋裝修', href: '#' },
-    { label: '舊屋翻新與設計', href: '#' },
-    { label: '預售屋設計', href: '#' },
-    { label: '線上詢問', href: '#' },
+    { label: '關於我們', to: '/' },
+    { label: '智能訂製全屋裝修', to: '/smart-customization' },
+    { label: '舊屋翻新與設計', to: '/' },
+    { label: '預售屋設計', to: '/' },
+    { label: '線上詢問', to: '/' },
 ]
 
 function Navbar() {
@@ -15,10 +16,10 @@ function Navbar() {
     return (
         <header className="navbar">
             {/* Logo 區塊（左上角） */}
-            <a href="/" className="navbar-logo">
+            <Link to="/" className="navbar-logo">
                 <span className="logo-icon"></span>
                 <span className="logo-text">泰金閣設計裝修工作室</span>
-            </a>
+            </Link>
 
             {/* 漢堡按鈕（手機版） */}
             <button
@@ -34,9 +35,14 @@ function Navbar() {
             {/* 導覽選單（右上角） */}
             <nav className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
                 {navLinks.map((link) => (
-                    <a key={link.label} href={link.href} className="navbar-link">
+                    <Link
+                        key={link.label}
+                        to={link.to}
+                        className="navbar-link"
+                        onClick={() => setMenuOpen(false)}
+                    >
                         {link.label}
-                    </a>
+                    </Link>
                 ))}
                 <button className="navbar-search" aria-label="搜尋">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -50,3 +56,4 @@ function Navbar() {
 }
 
 export default Navbar
+
