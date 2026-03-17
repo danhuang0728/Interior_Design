@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css'
+import logoOnly from '../img/logoOnly.jpg'
 
 const navLinks = [
     { label: '關於我們', to: '/' },
@@ -17,7 +18,7 @@ function Navbar() {
         <header className="navbar">
             {/* Logo 區塊（左上角） */}
             <Link to="/" className="navbar-logo">
-                <span className="logo-icon"></span>
+                <span className="logo-icon"><img src={logoOnly} alt="" /></span>
                 <span className="logo-text">泰金閣設計裝修工作室</span>
             </Link>
 

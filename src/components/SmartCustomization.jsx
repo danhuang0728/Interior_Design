@@ -206,6 +206,7 @@ export default function SmartCustomization() {
       <main className="sc-main">
         {/* Hero text */}
         <div className="sc-hero-text">
+        <br/>
           <h1>2026 室內裝潢設計推薦案例</h1>
           <p>
             泰金閣家居，旗下室內設計以及系統櫃知名品牌，以『智能訂製、全屋裝修』為理念，設計每個家庭專屬舒適空間，
