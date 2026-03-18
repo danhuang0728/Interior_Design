@@ -29,8 +29,8 @@ const cannedReplies = [
 ]
 
 export const lineContact = {
-  title: 'LINE 官方帳號預留區',
-  friendId: '@taijin-design',
+  title: 'LINE 官方帳號',
+  friendId: '@liuangel.ns',
   description:
     '第一版先以前端展示聊天流程為主，第二階段會在這裡接上 LINE 加好友按鈕、QR Code 或客服轉接入口。',
 }
