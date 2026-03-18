@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import SmartCustomization from './components/SmartCustomization'
 import logo from './img/logo.jpg'
+import Inquiry from './pages/Inquiry'
 import './App.css'
 import './mainDesign.css'
 
@@ -41,10 +42,25 @@ function Home() {
   )
 }
 
+function InquiryView() {
+  return (
+    <>
+      <Navbar />
+      <main className="main-content">
+        <Inquiry />
+      </main>
+      <footer className="footer">
+        <p>Copyright © 2026 泰金閣設計裝修工作室. All rights reserved.</p>
+      </footer>
+    </>
+  )
+}
+
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/inquiry" element={<InquiryView />} />
       <Route path="/smart-customization" element={<SmartCustomization />} />
     </Routes>
   )
