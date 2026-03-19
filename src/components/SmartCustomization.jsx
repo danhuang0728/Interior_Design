@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
 import './SmartCustomization.css'
 
@@ -96,6 +97,7 @@ const designs = [
 // ── Component ────────────────────────────────────────────────
 export default function SmartCustomization() {
   const [activeDropdown, setActiveDropdown] = useState(null)
+  const navigate = useNavigate()
   const [selectedDropdowns, setSelectedDropdowns] = useState({})
   const [selectedTag, setSelectedTag] = useState(null)
 
@@ -207,6 +209,8 @@ export default function SmartCustomization() {
         {/* Hero text */}
         <div className="sc-hero-text">
         <br/>
+        <br/>
+        <br/>
           <h1>2026 室內裝潢設計推薦案例</h1>
           <p>
             泰金閣家居，旗下室內設計以及系統櫃知名品牌，以『智能訂製、全屋裝修』為理念，設計每個家庭專屬舒適空間，
@@ -218,10 +222,13 @@ export default function SmartCustomization() {
         <div className="sc-gallery">
           {filteredDesigns.length > 0 ? (
             filteredDesigns.map((d) => (
-              <div key={d.id} className="sc-card">
+              <div key={d.id} className="sc-card" onClick={() => navigate(`/smart-customization/${d.id}`)}>
                 <div className="sc-card-img-wrap">
                   <img src={d.image} alt={d.title} className="sc-card-img" />
                   <span className="sc-card-style-badge">{d.style}</span>
+                  <div className="sc-card-overlay">
+                    <span className="sc-card-view-btn">查看詳情 →</span>
+                  </div>
                 </div>
                 <div className="sc-card-info">
                   <h2 className="sc-card-title">{d.title}</h2>

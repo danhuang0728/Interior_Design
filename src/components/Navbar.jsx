@@ -6,7 +6,7 @@ import logoOnly from '../img/logoOnly.jpg'
 const navLinks = [
     { label: '關於我們', to: '/' },
     { label: '智能訂製全屋裝修', to: '/smart-customization' },
-    { label: '舊屋翻新與設計', to: '/' },
+    { label: '舊屋翻新與設計', to: '/refurbishment' },
     { label: '預售屋設計', to: '/' },
 ]
 

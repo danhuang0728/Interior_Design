@@ -1,6 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import SmartCustomization from './components/SmartCustomization'
+import SmartCustomizationDetail from './pages/SmartCustomizationDetail'
+import Refurbishment from './components/Refurbishment'
+import RefurbishmentDetail from './pages/RefurbishmentDetail'
 import logo from './img/logo.jpg'
 import Inquiry from './pages/Inquiry'
 import './App.css'
@@ -62,6 +65,9 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/inquiry" element={<InquiryView />} />
       <Route path="/smart-customization" element={<SmartCustomization />} />
+      <Route path="/smart-customization/:id" element={<SmartCustomizationDetail />} />
+      <Route path="/refurbishment" element={<Refurbishment />} />
+      <Route path="/refurbishment/:id" element={<RefurbishmentDetail />} />
     </Routes>
   )
 }

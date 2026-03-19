@@ -266,6 +266,32 @@
   backdrop-filter: blur(4px);
 }
 
+.sc-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 55%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.sc-card:hover .sc-card-overlay {
+  opacity: 1;
+}
+
+.sc-card-view-btn {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.06em;
+  background: rgba(231, 76, 60, 0.85);
+  padding: 6px 14px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
 .sc-card-info {
   padding: 16px 18px 18px;
 }
