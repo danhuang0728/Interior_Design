@@ -1,0 +1,351 @@
+/* Presale List & Detail Pages */
+
+/* --- List Page --- */
+.presale-list-main {
+  min-height: calc(100vh - 80px); /* adjust based on footer/navbar */
+  background-color: #f9f9f9;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #333;
+}
+
+.presale-hero {
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000');
+  background-size: cover;
+  background-position: center;
+  height: 40vh;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 0 20px;
+}
+
+.presale-hero-content {
+  max-width: 800px;
+  animation: fadeInDown 1s ease-out;
+}
+
+.presale-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+.presale-subtitle {
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.presale-gallery-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+.presale-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 40px;
+}
+
+.presale-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.presale-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.presale-card-image-wrapper {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.presale-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.presale-card:hover .presale-card-image {
+  transform: scale(1.08);
+}
+
+.presale-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.presale-card:hover .presale-card-overlay {
+  opacity: 1;
+}
+
+.presale-card-action {
+  color: white;
+  border: 1px solid white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.presale-card:hover .presale-card-action {
+  transform: translateY(0);
+}
+
+.presale-card-content {
+  padding: 25px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.presale-card-style {
+  font-size: 0.85rem;
+  color: #8da4a1; /* matching the brand's teal note typically */
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.presale-card-title {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.3;
+}
+
+.presale-card-size {
+  margin-top: auto;
+  font-size: 0.95rem;
+  color: #666;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+/* --- Detail Page --- */
+.presale-detail-main {
+  background-color: #fff;
+  color: #333;
+  padding-bottom: 100px;
+}
+
+.presale-detail-header-section {
+  height: 60vh;
+  min-height: 500px;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 0 20px;
+}
+
+.presale-detail-header-content {
+  animation: fadeIn 1.2s ease;
+}
+
+.presale-detail-style-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(5px);
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+.presale-detail-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  box-shadow: none;
+}
+
+.presale-detail-subtitle {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #eee;
+}
+
+.presale-detail-container {
+  max-width: 1000px;
+  margin: -60px auto 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 2;
+  padding: 50px;
+}
+
+.presale-detail-info-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #eaedf1;
+  margin-bottom: 40px;
+}
+
+.info-item {
+  flex: 1;
+  min-width: 200px;
+}
+
+.info-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.info-value {
+  display: block;
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.presale-detail-text h2 {
+  font-size: 2rem;
+  color: #111;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.presale-detail-text p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+.presale-detail-gallery {
+  margin-top: 60px;
+}
+
+.presale-detail-gallery h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.presale-detail-images {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.detail-image-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.detail-image-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.detail-image-wrapper:hover img {
+  transform: scale(1.03);
+}
+
+.presale-detail-actions {
+  margin-top: 80px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-back {
+  padding: 15px 30px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+  background: #f5f5f5;
+  color: #111;
+}
+
+.btn-primary {
+  padding: 15px 40px;
+  background: #2b3a42;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(43, 58, 66, 0.3);
+}
+
+.btn-primary:hover {
+  background: #1a252b;
+  box-shadow: 0 6px 20px rgba(43, 58, 66, 0.4);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .presale-title { font-size: 2.2rem; }
+  .presale-detail-title { font-size: 2.5rem; }
+  .presale-detail-container {
+    padding: 30px 20px;
+    margin: -30px 15px 0;
+  }
+}
