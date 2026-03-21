@@ -14,11 +14,11 @@ import roomIndustrial from '../img/room_industrial.png'
 const dropdownFilters = [
   {
     label: '房型配置',
-    options: ['全部房型', '套房', '一房一廳', '兩房兩廳', '三房兩廳', '四房以上'],
+    options: ['全部房型', '套房', '一房一廳', '兩房兩廳', '三房兩廳'],
   },
   {
     label: '需家偏好',
-    options: ['全部風格', '現代簡約', '北歐風', '日式和風', '輕奢風格', '工業風'],
+    options: ['全部風格', '現代簡約', '北歐風', '日式和風', '輕奢風格'],
   },
   {
     label: '重點空間',
@@ -28,12 +28,9 @@ const dropdownFilters = [
 
 const tagFilters = [
   { label: '小坪數', count: 19 },
-  { label: '孝親房', count: 3 },
-  { label: '透天',   count: 12 },
   { label: '1–2房',  count: 18 },
   { label: '3房',    count: 24 },
-  { label: '4房以上', count: 10 },
-  { label: '樓中樓', count: 0 },
+  { label: '4房以上', count: 10 }
 ]
 
 // ── Gallery Data ─────────────────────────────────────────────
@@ -67,31 +64,13 @@ const designs = [
   },
   {
     id: 4,
-    image: roomLuxury,
-    title: '大理石輕奢廚房，展現精緻生活美學',
-    location: '台北大安 文心苑',
-    style: '輕奢風格',
-    tag: '4房以上',
-    brand: '泰金閣',
-  },
-  {
-    id: 5,
     image: roomSmall,
     title: '聰明收納小宅，讓空間放大兩倍',
     location: '新北永和 新月廣場',
     style: '現代簡約',
     tag: '小坪數',
     brand: '泰金閣',
-  },
-  {
-    id: 6,
-    image: roomIndustrial,
-    title: '工業風閣樓，原始與現代的完美融合',
-    location: '台中西屯 七期',
-    style: '工業風',
-    tag: '樓中樓',
-    brand: '泰金閣',
-  },
+  }
 ]
 
 // ── Component ────────────────────────────────────────────────

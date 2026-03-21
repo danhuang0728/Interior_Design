@@ -44,42 +44,42 @@ function Home() {
     );
 
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el) => observer.observe(el));
-    
+
     return () => observer.disconnect();
   }, []);
 
   return (
     <div className="home-wrapper">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="home-hero slider-container">
         {HERO_IMAGES.map((img, idx) => (
-          <div 
-            key={img} 
+          <div
+            key={img}
             className={`hero-slide ${idx === currentSlide ? 'active' : ''}`}
-            style={{backgroundImage: `url(${img})`}}
+            style={{ backgroundImage: `url(${img})` }}
           ></div>
         ))}
-        
+
         <div className="hero-overlay"></div>
-        
+
         {/* Slider Controls */}
         <button className="slider-btn prev-btn" onClick={prevSlide}>&#10094;</button>
         <button className="slider-btn next-btn" onClick={nextSlide}>&#10095;</button>
-        
+
         <div className="slider-dots">
           {HERO_IMAGES.map((_, idx) => (
-             <span 
-               key={idx} 
-               className={`slider-dot ${idx === currentSlide ? 'active' : ''}`}
-               onClick={() => setCurrentSlide(idx)}
-             ></span>
+            <span
+              key={idx}
+              className={`slider-dot ${idx === currentSlide ? 'active' : ''}`}
+              onClick={() => setCurrentSlide(idx)}
+            ></span>
           ))}
         </div>
 
         <div className="hero-content">
-          <h1 className="hero-title">泰金閣設計裝修工作室</h1>
+          <h1 className="hero-title" style={{ color: "#eeeeeed3" }}>泰金閣設計裝修工作室</h1>
           <p className="hero-subtitle">REDEFINING SPACE & AESTHETICS</p>
         </div>
       </section>
@@ -92,12 +92,12 @@ function Home() {
             <h3>「每個空間，都有屬於自己的呼吸與故事」</h3>
             <p>
               我們深信，好的設計不只是視覺的堆疊，更是對生活細節的深刻理解。
-              <br/><br/>
+              <br /><br />
               泰金閣團隊致力於將您的居家想像化為現實，從格局動線的雕琢到材質光影的演繹，為您打造極具質感且充滿溫度的專屬空間。
             </p>
           </div>
           <div className="philosophy-image reveal-right">
-             <img src="/home/home_about.png" alt="Interior Details" loading="lazy" />
+            <img src="/home/home_about.png" alt="Interior Details" loading="lazy" />
           </div>
         </section>
 
@@ -106,7 +106,7 @@ function Home() {
           <h2 className="section-title text-center">核心服務</h2>
           <div className="services-grid">
             <Link to="/smart-customization" className="service-card">
-              <div className="service-card-img" style={{backgroundImage: 'url(/presale/p2_cover.png)'}}></div>
+              <div className="service-card-img" style={{ backgroundImage: 'url(/presale/p2_cover.png)' }}></div>
               <div className="service-card-content">
                 <h3>智能訂製全屋裝修</h3>
                 <p>結合美學與智能科技，為現代人打造前衛且便利的居家生活。</p>
@@ -114,7 +114,7 @@ function Home() {
               </div>
             </Link>
             <Link to="/presale" className="service-card">
-              <div className="service-card-img" style={{backgroundImage: 'url(/presale/p1_cover.png)'}}></div>
+              <div className="service-card-img" style={{ backgroundImage: 'url(/presale/p1_cover.png)' }}></div>
               <div className="service-card-content">
                 <h3>預售屋客變與設計</h3>
                 <p>把握建商黃金修改期，為您省下不必要的拆除費用與時間。</p>
@@ -122,7 +122,7 @@ function Home() {
               </div>
             </Link>
             <Link to="/refurbishment" className="service-card">
-              <div className="service-card-img" style={{backgroundImage: 'url(/presale/p5_cover.png)'}}></div>
+              <div className="service-card-img" style={{ backgroundImage: 'url(/presale/p5_cover.png)' }}></div>
               <div className="service-card-content">
                 <h3>舊屋翻新與設計</h3>
                 <p>重塑老屋生命力，基礎工程升級與外觀煥然一新。</p>
@@ -134,9 +134,9 @@ function Home() {
 
         {/* Hexagon Grid Showcase */}
         <section className="hexagon-section reveal">
-          <h2 className="hexagon-section-title text-center">設計師介紹與經典案例</h2>
+          <h2 className="hexagon-section-title text-center">我們的團隊</h2>
           <div className="hexagon-grid">
-            {[1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6].map((num, i) => (
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num, i) =>   (
               <div className="hexagon" key={i}>
                 <img src={`/presale/p${num}_cover.png`} alt={`案例 ${i + 1}`} loading="lazy" />
               </div>

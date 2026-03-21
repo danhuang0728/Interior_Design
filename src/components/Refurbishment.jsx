@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 import './Refurbishment.css'
 
 // ── Design Categories ──────────────────────────────────────────
-const categories = ['全部', '住宅翻新', '老屋改造', '商業空間', '輕裝修']
+const categories = ['全部', '住宅翻新', '老屋改造', '輕裝修']
 
 // ── Cases Data ────────────────────────────────────────────────
 const cases = [
@@ -55,15 +55,6 @@ const cases = [
   },
   {
     id: 6,
-    title: '工業風咖啡廳，磚牆與老件的對話',
-    location: '台中西區 公益路',
-    category: '商業空間',
-    style: '工業風',
-    area: '60 坪',
-    image: 'https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=800&q=80',
-  },
-  {
-    id: 7,
     title: '透天厝全室翻新，一家三代的溫暖記憶',
     location: '彰化鹿港 中山路',
     category: '住宅翻新',
@@ -72,7 +63,7 @@ const cases = [
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
   },
   {
-    id: 8,
+    id: 7,
     title: '清水模基調，極簡主義頂樓加蓋',
     location: '台北中山 民生東路',
     category: '輕裝修',
@@ -81,7 +72,7 @@ const cases = [
     image: 'https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=800&q=80',
   },
   {
-    id: 9,
+    id: 8,
     title: '美容沙龍輕奢改造，粉調玫瑰金空間',
     location: '台南東區 東門路',
     category: '商業空間',
