@@ -122,6 +122,18 @@ function SmartCustomizationDetail() {
     return `/customization/tv-cabinet-${currentTvType}${suffix}.jpg`;
   };
 
+  // Derive the image for masterBed based on config
+  const getMasterBedImage = () => {
+    const hasWardrobe = config.masterBed.includes('衣櫃');
+    const hasVanity = config.masterBed.includes('化妝台');
+    
+    if (hasWardrobe && hasVanity) return '/customization/masterbed-wardrobe-vanity.jpg';
+    if (hasWardrobe) return '/customization/masterbed-wardrobe.jpg';
+    if (hasVanity) return '/customization/masterbed-vanity.jpg';
+    
+    return '/customization/masterbed-base.jpg';
+  };
+
   return (
     <div className="configurator-wrapper">
       <Navbar />
@@ -210,8 +222,8 @@ function SmartCustomizationDetail() {
           <div className="config-row-left">
             <div className="preview-image-box">
               <img
-                key={previewImgs.masterBed}
-                src={previewImgs.masterBed}
+                key={getMasterBedImage()}
+                src={getMasterBedImage()}
                 alt="裝修預覽圖"
                 className="preview-img"
               />
