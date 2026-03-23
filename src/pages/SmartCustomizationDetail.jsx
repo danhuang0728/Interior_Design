@@ -134,6 +134,18 @@ function SmartCustomizationDetail() {
     return '/customization/masterbed-base.jpg';
   };
 
+  // Derive the image for secondBed based on config
+  const getSecondBedImage = () => {
+    const hasWardrobe = config.secondBed.includes('衣櫃');
+    const hasBookcase = config.secondBed.includes('書櫃');
+    
+    if (hasWardrobe && hasBookcase) return '/customization/secondbed-wardrobe-bookcase.jpg';
+    if (hasWardrobe) return '/customization/secondbed-wardrobe.jpg';
+    if (hasBookcase) return '/customization/secondbed-bookcase.jpg';
+    
+    return '/customization/secondbed-base.jpg';
+  };
+
   return (
     <div className="configurator-wrapper">
       <Navbar />
@@ -258,8 +270,8 @@ function SmartCustomizationDetail() {
           <div className="config-row-left">
             <div className="preview-image-box">
               <img
-                key={previewImgs.secondBed}
-                src={previewImgs.secondBed}
+                key={getSecondBedImage()}
+                src={getSecondBedImage()}
                 alt="裝修預覽圖"
                 className="preview-img"
               />
