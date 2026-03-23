@@ -14,17 +14,17 @@ function SmartCustomizationDetail() {
 
   // ─── Configuration State ───
   const [config, setConfig] = useState({
-    tvCabinet: '電視牆', 
-    livingRoomSide: [], 
-    masterBed: [],     
-    secondBed: [],     
-    kitchen: []        
+    tvCabinet: '電視牆',
+    livingRoomSide: [],
+    masterBed: [],
+    secondBed: [],
+    kitchen: []
   });
 
   // ─── Preview Images State ───
   // Each category has its own preview image on the left.
   const [previewImgs, setPreviewImgs] = useState({
-    tvCabinet: '/presale/p2_cover.png',
+    tvCabinet: '/customization/tv-cabinet-wall.jpg',
     livingRoomSide: '/presale/p4_cover.png',
     masterBed: '/presale/p6_cover.png',
     secondBed: '/presale/p8_cover.png',
@@ -51,9 +51,9 @@ function SmartCustomizationDetail() {
 
   // ─── Options Data ───
   const tvCabinetOptions = [
-    { label: '落地型', desc: '經典收納，適合多設備家庭', price: '+ NT$ 25,000', img: '/presale/p1_cover.png' },
-    { label: '電視牆', desc: '極簡懸空設計，展現主牆大氣', price: '+ NT$ 38,000', img: '/presale/p2_cover.png' },
-    { label: '無電視櫃', desc: '保留最大空間尺度，極致極簡', price: '+ NT$ 0', img: '/presale/p3_cover.png' }
+    { label: '落地型', desc: '經典收納，適合多設備家庭', price: '+ NT$ 25,000', img: '/customization/tv-cabinet-floor.jpg' },
+    { label: '懸浮型', desc: '極簡懸空設計，展現主牆大氣', price: '+ NT$ 38,000', img: '/customization/tv-cabinet-wall.jpg' },
+    { label: '無電視櫃', desc: '保留最大空間尺度，極致從簡', price: '+ NT$ 0', img: '/customization/tv-cabinet-none.jpg' }
   ];
 
   const livingSideOptions = [
@@ -78,12 +78,12 @@ function SmartCustomizationDetail() {
 
   // Calculate estimated total based on selections
   const calculateTotal = () => {
-    let total = 0; 
-    
+    let total = 0;
+
     // Add TV Cabinet
     const selectedTv = tvCabinetOptions.find(o => o.label === config.tvCabinet);
     if (selectedTv) total += parseInt(selectedTv.price.replace(/\D/g, ''));
-    
+
     // Helper to calculate array totals
     const sumArray = (choices, optionsData) => {
       return choices.reduce((sum, choice) => {
@@ -99,6 +99,28 @@ function SmartCustomizationDetail() {
 
     return total;
   };
+  // Derive the image for livingRoomSide based on config
+  const getLivingRoomSideImage = () => {
+    const tvTypeMap = {
+      '落地型': 'floor',
+      '懸浮型': 'wall',
+      '無電視櫃': 'none'
+    };
+    const currentTvType = tvTypeMap[config.tvCabinet] || 'wall';
+
+    const hasShoe = config.livingRoomSide.includes('鞋櫃');
+    const hasSide = config.livingRoomSide.includes('側櫃');
+
+    let suffix = '';
+    if (hasShoe && hasSide) suffix = '-shoeside';
+    else if (hasShoe) suffix = '-shoe';
+    else if (hasSide) suffix = '-side';
+
+    // If no side cabinets selected, show the base TV cabinet
+    if (!suffix) return `/customization/tv-cabinet-${currentTvType}.jpg`;
+
+    return `/customization/tv-cabinet-${currentTvType}${suffix}.jpg`;
+  };
 
   return (
     <div className="configurator-wrapper">
@@ -113,15 +135,15 @@ function SmartCustomizationDetail() {
       </div>
 
       <main className="configurator-main vertical-layout">
-        
+
         {/* Section 1: 客廳電視牆 */}
         <section className="config-row">
           <div className="config-row-left">
             <div className="preview-image-box">
-              <img 
+              <img
                 key={previewImgs.tvCabinet}
-                src={previewImgs.tvCabinet} 
-                alt="裝修預覽圖" 
+                src={previewImgs.tvCabinet}
+                alt="裝修預覽圖"
                 className="preview-img"
               />
               <div className="preview-badge">客廳空間</div>
@@ -131,7 +153,7 @@ function SmartCustomizationDetail() {
             <h2 className="config-section-title">電視櫃訂製 <span className="req">*單選</span></h2>
             <div className="options-grid">
               {tvCabinetOptions.map(opt => (
-                <button 
+                <button
                   key={opt.label}
                   className={`option-card ${config.tvCabinet === opt.label ? 'active' : ''}`}
                   onClick={() => setSingleOption('tvCabinet', opt.label, opt.img)}
@@ -151,10 +173,10 @@ function SmartCustomizationDetail() {
         <section className="config-row">
           <div className="config-row-left">
             <div className="preview-image-box">
-              <img 
-                key={previewImgs.livingRoomSide}
-                src={previewImgs.livingRoomSide} 
-                alt="裝修預覽圖" 
+              <img
+                key={getLivingRoomSideImage()}
+                src={getLivingRoomSideImage()}
+                alt="裝修預覽圖"
                 className="preview-img"
               />
               <div className="preview-badge">客廳旁邊櫃體</div>
@@ -166,7 +188,7 @@ function SmartCustomizationDetail() {
               {livingSideOptions.map(opt => {
                 const isActive = config.livingRoomSide.includes(opt.label);
                 return (
-                  <button 
+                  <button
                     key={opt.label}
                     className={`option-card ${isActive ? 'active' : ''}`}
                     onClick={() => toggleArrayOption('livingRoomSide', opt.label, opt.img)}
@@ -187,10 +209,10 @@ function SmartCustomizationDetail() {
         <section className="config-row">
           <div className="config-row-left">
             <div className="preview-image-box">
-              <img 
+              <img
                 key={previewImgs.masterBed}
-                src={previewImgs.masterBed} 
-                alt="裝修預覽圖" 
+                src={previewImgs.masterBed}
+                alt="裝修預覽圖"
                 className="preview-img"
               />
               <div className="preview-badge">主臥空間</div>
@@ -202,7 +224,7 @@ function SmartCustomizationDetail() {
               {masterBedOptions.map(opt => {
                 const isActive = config.masterBed.includes(opt.label);
                 return (
-                  <button 
+                  <button
                     key={opt.label}
                     className={`option-card ${isActive ? 'active' : ''}`}
                     onClick={() => toggleArrayOption('masterBed', opt.label, opt.img)}
@@ -223,10 +245,10 @@ function SmartCustomizationDetail() {
         <section className="config-row">
           <div className="config-row-left">
             <div className="preview-image-box">
-              <img 
+              <img
                 key={previewImgs.secondBed}
-                src={previewImgs.secondBed} 
-                alt="裝修預覽圖" 
+                src={previewImgs.secondBed}
+                alt="裝修預覽圖"
                 className="preview-img"
               />
               <div className="preview-badge">次臥空間</div>
@@ -238,7 +260,7 @@ function SmartCustomizationDetail() {
               {secondBedOptions.map(opt => {
                 const isActive = config.secondBed.includes(opt.label);
                 return (
-                  <button 
+                  <button
                     key={opt.label}
                     className={`option-card ${isActive ? 'active' : ''}`}
                     onClick={() => toggleArrayOption('secondBed', opt.label, opt.img)}
@@ -259,10 +281,10 @@ function SmartCustomizationDetail() {
         <section className="config-row">
           <div className="config-row-left">
             <div className="preview-image-box">
-              <img 
+              <img
                 key={previewImgs.kitchen}
-                src={previewImgs.kitchen} 
-                alt="裝修預覽圖" 
+                src={previewImgs.kitchen}
+                alt="裝修預覽圖"
                 className="preview-img"
               />
               <div className="preview-badge">餐廚空間</div>
@@ -274,7 +296,7 @@ function SmartCustomizationDetail() {
               {kitchenOptions.map(opt => {
                 const isActive = config.kitchen.includes(opt.label);
                 return (
-                  <button 
+                  <button
                     key={opt.label}
                     className={`option-card ${isActive ? 'active' : ''}`}
                     onClick={() => toggleArrayOption('kitchen', opt.label, opt.img)}
