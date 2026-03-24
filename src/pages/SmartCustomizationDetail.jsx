@@ -146,6 +146,18 @@ function SmartCustomizationDetail() {
     return '/customization/secondbed-base.jpg';
   };
 
+  // Derive the image for kitchen based on config
+  const getKitchenImage = () => {
+    const hasBar = config.kitchen.includes('吧檯桌');
+    const hasSideboard = config.kitchen.includes('餐邊櫃');
+    
+    if (hasBar && hasSideboard) return '/customization/kitchen-bar-sideboard.jpg';
+    if (hasBar) return '/customization/kitchen-bar.jpg';
+    if (hasSideboard) return '/customization/kitchen-sideboard.jpg';
+    
+    return '/customization/kitchen-base.jpg';
+  };
+
   return (
     <div className="configurator-wrapper">
       <Navbar />
@@ -306,8 +318,8 @@ function SmartCustomizationDetail() {
           <div className="config-row-left">
             <div className="preview-image-box">
               <img
-                key={previewImgs.kitchen}
-                src={previewImgs.kitchen}
+                key={getKitchenImage()}
+                src={getKitchenImage()}
                 alt="裝修預覽圖"
                 className="preview-img"
               />

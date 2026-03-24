@@ -483,6 +483,7 @@
   color: #ccc;
   transition: transform 0.3s, color 0.3s;
   flex-shrink: 0;
+  margin-right: 24px;
 }
 
 .wb-service-row:hover .wb-service-arrow {
