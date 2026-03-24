@@ -108,13 +108,48 @@
   pointer-events: none;
 }
 
+/* ── Ambience: Glow & Noise overlay ── */
+.hero-glow {
+  position: absolute;
+  width: 150vw;
+  height: 150vw;
+  top: -50vw;
+  left: -25vw;
+  background: radial-gradient(circle, rgba(235, 230, 222, 0.45) 0%, rgba(253, 253, 252, 0) 70%);
+  z-index: 0;
+  pointer-events: none;
+  animation: glowBreathe 12s ease-in-out infinite alternate;
+}
+
+@keyframes glowBreathe {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.05) translate(2%, 2%);
+    opacity: 1;
+  }
+}
+
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  /* Very subtle and native SVG noise generation. Beautiful aesthetic touch. */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+}
+
 /* Circular accents */
 .geo-circle {
   position: absolute;
   border-radius: 50%;
   border: 1px solid #e5e2dbd5;
   opacity: 0;
-  animation: fadeScale 3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s forwards;
 }
 
 @keyframes fadeScale {
@@ -122,6 +157,7 @@
     transform: scale(0.95);
     opacity: 0;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -133,7 +169,9 @@
   height: 60vw;
   top: -10vw;
   right: -20vw;
-  border-width: 1.5px;
+  border-width: 3.5px;
+  animation: fadeScale 3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s forwards,
+    breatheCircle1 24s ease-in-out 3.5s infinite alternate;
 }
 
 .geo-circle-2 {
@@ -141,7 +179,29 @@
   height: 40vw;
   bottom: -15vw;
   left: -10vw;
-  border-width: 1.5px;
+  border-width: 3.5px;
+  animation: fadeScale 3s cubic-bezier(0.165, 0.84, 0.44, 1) 0.5s forwards,
+    breatheCircle2 20s ease-in-out 3.5s infinite alternate;
+}
+
+@keyframes breatheCircle1 {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  100% {
+    transform: scale(1.06) translate(-4%, 4%);
+  }
+}
+
+@keyframes breatheCircle2 {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  100% {
+    transform: scale(1.08) translate(5%, -5%);
+  }
 }
 
 /* Line accents */
@@ -152,29 +212,62 @@
 
 .geo-line-h1 {
   width: 100%;
-  height: 1px;
+  height: 1.7px;
   top: 35%;
   left: 0;
   transform-origin: left;
-  animation: drawX 4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  animation: drawX 4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards,
+    floatH 15s ease-in-out 4s infinite alternate;
 }
 
 .geo-line-v1 {
-  width: 1px;
+  width: 1.7px;
   height: 100%;
   top: 0;
   left: 20%;
   transform-origin: top;
-  animation: drawY 2.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  animation: drawY 2.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards,
+    floatV1 12s ease-in-out 2.5s infinite alternate;
 }
 
 .geo-line-v2 {
-  width: 1px;
+  width: 1.7px;
   height: 100%;
   top: 0;
   right: 15%;
   transform-origin: bottom;
-  animation: drawY 2.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  animation: drawY 2.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards,
+    floatV2 14s ease-in-out 2.5s infinite alternate;
+}
+
+@keyframes floatH {
+  0% {
+    transform: scaleX(1) translateY(0);
+  }
+
+  100% {
+    transform: scaleX(1) translateY(12px);
+  }
+}
+
+@keyframes floatV1 {
+  0% {
+    transform: scaleY(1) translateX(0);
+  }
+
+  100% {
+    transform: scaleY(1) translateX(-8px);
+  }
+}
+
+@keyframes floatV2 {
+  0% {
+    transform: scaleY(1) translateX(0);
+  }
+
+  100% {
+    transform: scaleY(1) translateX(10px);
+  }
 }
 
 @keyframes drawX {
@@ -182,9 +275,11 @@
     transform: scaleX(0);
     opacity: 0;
   }
+
   5% {
     opacity: 1;
   }
+
   100% {
     transform: scaleX(1);
     opacity: 1;
@@ -196,9 +291,11 @@
     transform: scaleY(0);
     opacity: 0;
   }
+
   5% {
     opacity: 1;
   }
+
   100% {
     transform: scaleY(1);
     opacity: 1;

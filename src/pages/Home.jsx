@@ -69,6 +69,8 @@ function Home() {
         <div className="cursor-ring" ref={cursorRef} />
 
         <div className="hero-geometry">
+          <div className="hero-glow" />
+          <div className="hero-noise" />
           <div className="geo-circle geo-circle-1" />
           <div className="geo-circle geo-circle-2" />
           <div className="geo-line geo-line-h1" />
