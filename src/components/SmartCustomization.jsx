@@ -232,9 +232,9 @@ export default function SmartCustomization() {
           <div className="sc-footer-links">
             <a href="#">關於我們</a>
             <a href="#">智能訂製全屋裝修</a>
-            <a href="#">舊屋翻新與設計</a>
-            <a href="#">預售屋設計</a>
-            <a href="#">線上詢問</a>
+            <a href="/refurbishment">舊屋翻新與設計</a>
+            <a href="/worker-appointment">工班預約</a>
+            <a href="/inquiry">線上詢問</a>
           </div>
         </div>
         <div className="sc-footer-copy">

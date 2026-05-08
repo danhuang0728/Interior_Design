@@ -1,0 +1,274 @@
+* {
+  box-sizing: border-box;
+}
+
+.worker-appointment-main {
+  min-height: calc(100vh - 80px); /* Adjust based on navbar/footer */
+  background-color: #fcfcfc;
+  padding-bottom: 4rem;
+}
+
+.wa-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('../img/room_modern.png') center/cover no-repeat;
+  height: 35vh;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-bottom: 3rem;
+}
+
+.wa-hero-content {
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.wa-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.wa-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  letter-spacing: 1px;
+}
+
+.wa-form-section {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+.wa-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.wa-form-row .wa-form-group {
+  margin-bottom: 0;
+}
+
+.wa-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.wa-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.required {
+  color: #C0392B;
+  margin-left: 4px;
+}
+
+.wa-input,
+.wa-textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+}
+
+.wa-input:focus,
+.wa-textarea:focus {
+  outline: none;
+  border-color: #333;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.wa-checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.wa-checkbox-label,
+.wa-radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.wa-checkbox-label input,
+.wa-radio-label input {
+  margin-right: 0.5rem;
+  width: 18px;
+  height: 18px;
+  accent-color: #333;
+}
+
+.wa-radio-group {
+  display: flex;
+  gap: 2rem;
+  padding-top: 0.5rem;
+}
+
+.wa-form-actions {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wa-btn {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  letter-spacing: 1px;
+}
+
+.wa-btn:hover {
+  background-color: #000;
+  transform: translateY(-2px);
+}
+
+.wa-btn:active {
+  transform: translateY(0);
+}
+
+/* Success Message Styles */
+.wa-success-message {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.wa-success-message h2 {
+  color: #2E7D32;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.wa-summary {
+  background-color: #f9f9f9;
+  border-left: 4px solid #333;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.wa-summary h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.wa-summary ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wa-summary li {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+.wa-summary strong {
+  color: #333;
+  display: inline-block;
+  min-width: 120px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .wa-form-section {
+    padding: 2rem 1.5rem;
+    margin: 0 1rem;
+  }
+
+  .wa-form-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Info Section Styles */
+.wa-info-section {
+  background-color: #333;
+  color: white;
+  padding: 5rem 0;
+  margin-top: 5rem;
+}
+
+.wa-info-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.wa-info-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 4rem;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.wa-info-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: #fff;
+}
+
+.wa-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+
+.wa-info-item h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.wa-info-item p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .wa-info-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .wa-info-section {
+    padding: 3rem 0;
+  }
+}

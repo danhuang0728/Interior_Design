@@ -12,9 +12,9 @@ const SERVICES = [
   },
   {
     num: '02',
-    title: '預售屋客變與設計',
-    desc: '把握建商黃金修改期，為您省下不必要的拆除費用與時間。',
-    to: '/presale',
+    title: '工班預約',
+    desc: '提供木工、系統櫃、水電等多種專業工班服務，滿足您的各項裝修需求。',
+    to: '/worker-appointment',
   },
   {
     num: '03',
@@ -178,7 +178,7 @@ function Home() {
           </div>
           <div className="home-footer-links">
             <Link to="/smart-customization">智能訂製全屋裝修</Link>
-            <Link to="/presale">預售屋客變與設計</Link>
+            <Link to="/worker-appointment">工班預約</Link>
             <Link to="/refurbishment">舊屋翻新與設計</Link>
             <Link to="/inquiry">線上詢問</Link>
           </div>

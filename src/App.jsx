@@ -5,8 +5,7 @@ import SmartCustomizationDetail from './pages/SmartCustomizationDetail'
 import Refurbishment from './components/Refurbishment'
 import RefurbishmentDetail from './pages/RefurbishmentDetail'
 import Inquiry from './pages/Inquiry'
-import PresaleList from './pages/PresaleList'
-import PresaleDetail from './pages/PresaleDetail'
+import WorkerAppointment from './pages/WorkerAppointment'
 import Home from './pages/Home'
 import './App.css'
 import './mainDesign.css'
@@ -31,8 +30,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/inquiry" element={<InquiryView />} />
       <Route path="/smart-customization" element={<SmartCustomization />} />
-      <Route path="/presale" element={<PresaleList />} />
-      <Route path="/presale/:id" element={<PresaleDetail />} />
+      <Route path="/worker-appointment" element={<WorkerAppointment />} />
       <Route path="/smart-customization/:id" element={<SmartCustomizationDetail />} />
       <Route path="/refurbishment" element={<Refurbishment />} />
       <Route path="/refurbishment/:id" element={<RefurbishmentDetail />} />
