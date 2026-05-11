@@ -5,10 +5,8 @@ import './SmartCustomization.css'
 
 import roomModern from '../img/room_modern.png'
 import roomNordic from '../img/room_nordic.png'
-import roomJapan from '../img/room_japan.png'
-import roomLuxury from '../img/room_luxury.png'
-import roomSmall from '../img/room_small.png'
-import roomIndustrial from '../img/room_industrial.png'
+import roomAmerican from '../img/room_american.png'
+import roomOffice from '../img/room_office.png'
 
 // ── Filter Data ──────────────────────────────────────────────
 const dropdownFilters = [
@@ -16,21 +14,14 @@ const dropdownFilters = [
     label: '房型配置',
     options: ['全部房型', '套房', '一房一廳', '兩房兩廳', '三房兩廳'],
   },
-  {
-    label: '需家偏好',
-    options: ['全部風格', '現代簡約', '北歐風', '日式和風', '輕奢風格'],
-  },
-  {
-    label: '重點空間',
-    options: ['全部空間', '客廳', '臥室', '廚房', '衛浴', '書房', '陽台'],
-  },
+
 ]
 
 const tagFilters = [
   { label: '小坪數', count: 19 },
-  { label: '1–2房',  count: 18 },
-  { label: '3房',    count: 24 },
-  { label: '4房以上', count: 10 }
+  { label: '1–2房', count: 18 },
+  //{ label: '3房', count: 24 },
+  //{ label: '4房以上', count: 10 }
 ]
 
 // ── Gallery Data ─────────────────────────────────────────────
@@ -38,39 +29,35 @@ const designs = [
   {
     id: 1,
     image: roomModern,
-    title: '石材與光影共舞，譜寫現代極簡品味居',
-    location: '台中龍井 德光大智',
+    title: '',
     style: '現代簡約',
     tag: '小坪數',
-    brand: '親子世界',
+    brand: '智能訂製',
   },
   {
     id: 2,
     image: roomNordic,
-    title: '暖光築起成長樂園，譜出北歐木質詩篇',
-    location: '台中龍井 德光大智',
+    title: '',
     style: '北歐風',
     tag: '3房',
-    brand: '親子世界',
+    brand: '智能訂製',
   },
   {
     id: 3,
-    image: roomJapan,
-    title: '首購減法生活，暖木無印風親子宅',
-    location: '高雄鼓山 滙堤',
-    style: '日式和風',
+    image: roomAmerican,
+    title: '',
+    style: '美式風',
     tag: '1–2房',
-    brand: '親子世界',
+    brand: '智能訂製',
   },
   {
     id: 4,
-    image: roomSmall,
-    title: '聰明收納小宅，讓空間放大兩倍',
-    location: '新北永和 新月廣場',
-    style: '現代簡約',
-    tag: '小坪數',
-    brand: '泰金閣',
-  }
+    image: roomOffice,
+    title: '',
+    style: '商辦空間',
+    tag: '1–2房',
+    brand: '智能訂製',
+  },
 ]
 
 // ── Component ────────────────────────────────────────────────
@@ -139,9 +126,8 @@ export default function SmartCustomization() {
                     {f.options.map((opt) => (
                       <li
                         key={opt}
-                        className={`sc-dropdown-item ${
-                          selectedDropdowns[f.label] === opt ? 'selected' : ''
-                        }`}
+                        className={`sc-dropdown-item ${selectedDropdowns[f.label] === opt ? 'selected' : ''
+                          }`}
                         onClick={() => selectOption(f.label, opt)}
                       >
                         {opt}
@@ -187,9 +173,9 @@ export default function SmartCustomization() {
       <main className="sc-main">
         {/* Hero text */}
         <div className="sc-hero-text">
-        <br/>
-        <br/>
-        <br/>
+          <br />
+          <br />
+          <br />
           <h1>2026 室內裝潢設計推薦案例</h1>
           <p>
             泰金閣家居，旗下室內設計以及系統櫃知名品牌，以『智能訂製、全屋裝修』為理念，設計每個家庭專屬舒適空間，
@@ -211,7 +197,6 @@ export default function SmartCustomization() {
                 </div>
                 <div className="sc-card-info">
                   <h2 className="sc-card-title">{d.title}</h2>
-                  <p className="sc-card-location">– {d.location}</p>
                   <p className="sc-card-brand">{d.brand}</p>
                 </div>
               </div>
