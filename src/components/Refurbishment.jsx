@@ -1,95 +1,164 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import emailjs from '@emailjs/browser'
 import Navbar from './Navbar'
 import './Refurbishment.css'
 
-// ── Design Categories ──────────────────────────────────────────
-const categories = ['全部', '住宅翻新', '老屋改造', '輕裝修']
-
-// ── Cases Data ────────────────────────────────────────────────
-const cases = [
+// ── 工班配置資料 ──────────────────────────────────────────────
+const crewTeams = [
   {
-    id: 1,
-    title: '20 年老屋蛻變，溫潤木質現代宅',
-    location: '台中南屯 大墩十街',
-    category: '老屋改造',
-    style: '現代簡約',
-    area: '36 坪',
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80',
+    id: 'carpenter',
+    icon: '🪚',
+    name: '木工工班',
+    desc: '客製木作、天花板、隔間、門框，精工細作每一道工序。',
   },
   {
-    id: 2,
-    title: '光影交疊，打造北歐清新客廳',
-    location: '台北信義 松智路',
-    category: '住宅翻新',
-    style: '北歐風',
-    area: '28 坪',
-    image: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&q=80',
+    id: 'system-cabinet',
+    icon: '🗄️',
+    name: '系統櫃工班',
+    desc: '德國五金搭配台灣製系統板材，收納規劃量身訂製。',
   },
   {
-    id: 3,
-    title: '日式侘寂，沉靜禪意私人臥榻',
-    location: '高雄苓雅 四維三路',
-    category: '住宅翻新',
-    style: '日式和風',
-    area: '22 坪',
-    image: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=800&q=80',
+    id: 'demolition',
+    icon: '🏗️',
+    name: '拆除清運工班',
+    desc: '老屋拆除、廢棄物清運，依現場坪數與材質專業評估報價。',
   },
   {
-    id: 4,
-    title: '飯店級輕奢主臥，石材與金屬共舞',
-    location: '台北大安 仁愛路四段',
-    category: '老屋改造',
-    style: '輕奢風格',
-    area: '45 坪',
-    image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80',
-  },
-  {
-    id: 5,
-    title: '小坪數收納術，讓 15 坪住出 30 坪感',
-    location: '新北板橋 文化路',
-    category: '輕裝修',
-    style: '現代簡約',
-    area: '15 坪',
-    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
-  },
-  {
-    id: 6,
-    title: '透天厝全室翻新，一家三代的溫暖記憶',
-    location: '彰化鹿港 中山路',
-    category: '住宅翻新',
-    style: '傳統現代混搭',
-    area: '80 坪',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
-  },
-  {
-    id: 7,
-    title: '清水模基調，極簡主義頂樓加蓋',
-    location: '台北中山 民生東路',
-    category: '輕裝修',
-    style: '極簡風',
-    area: '18 坪',
-    image: 'https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=800&q=80',
-  },
-  {
-    id: 8,
-    title: '美容沙龍輕奢改造，粉調玫瑰金空間',
-    location: '台南東區 東門路',
-    category: '商業空間',
-    style: '輕奢風格',
-    area: '32 坪',
-    image: 'https://images.unsplash.com/photo-1570557652800-1f5b7c76775f?w=800&q=80',
+    id: 'electrical',
+    icon: '⚡',
+    name: '水電工班',
+    desc: '水電設備、排水系統、電路全面評估，確保用電與管線安全。',
   },
 ]
 
+// ── 服務說明資料 ──────────────────────────────────────────────
+const services = [
+  {
+    id: 'demolition-quote',
+    icon: '🏚️',
+    title: '舊屋拆除與清運報價',
+    highlight: '依現場的坪數、材質評估報價',
+    points: [
+      '老舊磁磚、木作、牆面全面拆除',
+      '廢棄物合法清運，場地還原乾淨',
+      '現場丈量後提供詳細書面報價',
+    ],
+  },
+  {
+    id: 'base-engineering',
+    icon: '🔧',
+    title: '基礎工程評估',
+    highlight: '水電設備、排水、電路評估',
+    points: [
+      '老屋管線老化全面檢查',
+      '衛浴排水系統重新規劃',
+      '電路容量升級，符合現代用電需求',
+    ],
+  },
+]
+
+// ── 地點選項 ──────────────────────────────────────────────────
+const locationOptions = ['竹南', '中彰投']
+
+// ── 初始表單狀態 ──────────────────────────────────────────────
+const initialForm = {
+  project_location: '',
+  project_size_ping: '',
+  has_design_blueprint: '',
+  expected_start_date: '',
+  client_name: '',
+  client_phone: '',
+  client_email: '',
+}
+
 // ── Component ─────────────────────────────────────────────────
 export default function Refurbishment() {
-  const [activeCategory, setActiveCategory] = useState('全部')
-  const navigate = useNavigate()
+  const [formData, setFormData] = useState(initialForm)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSending, setIsSending] = useState(false)
+  const [errors, setErrors] = useState({})
 
-  const filtered = activeCategory === '全部'
-    ? cases
-    : cases.filter((c) => c.category === activeCategory)
+  // ── 表單輸入處理 ──
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+    // 清除該欄位錯誤
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }))
+    }
+  }
+
+  // ── 表單驗證 ──
+  const validate = () => {
+    const newErrors = {}
+    if (!formData.project_location) newErrors.project_location = '請選擇案場地點'
+    if (!formData.project_size_ping || Number(formData.project_size_ping) <= 0)
+      newErrors.project_size_ping = '請輸入有效坪數'
+    if (!formData.has_design_blueprint) newErrors.has_design_blueprint = '請選擇是否有設計圖'
+    if (!formData.expected_start_date) newErrors.expected_start_date = '請選擇預計施工時間'
+    if (!formData.client_name.trim()) newErrors.client_name = '請輸入姓名'
+    if (!formData.client_phone.trim()) newErrors.client_phone = '請輸入聯絡電話'
+    if (!formData.client_email.trim()) newErrors.client_email = '請輸入 Email'
+    return newErrors
+  }
+
+  // ── 送出表單 ──
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const newErrors = validate()
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
+
+    setIsSending(true)
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+    const templateId = import.meta.env.VITE_EMAILJS_RENOVATION_TEMPLATE_ID
+    const adminTemplateId = import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+    // 若未設定 EmailJS 環境變數，切換為展示模式
+    if (!serviceId || !templateId || !publicKey) {
+      console.log('未偵測到 EmailJS 金鑰，切換為展示模式。表單提交資料：', formData)
+      setIsSending(false)
+      setIsSubmitted(true)
+      return
+    }
+
+    const templateParams = {
+      project_location: formData.project_location,
+      project_size_ping: formData.project_size_ping,
+      has_design_blueprint: formData.has_design_blueprint,
+      expected_start_date: formData.expected_start_date,
+      client_name: formData.client_name,
+      client_phone: formData.client_phone,
+      client_email: formData.client_email,
+      reply_to: formData.client_email,
+      admin_email: import.meta.env.VITE_EMAILJS_ADMIN_EMAIL,
+    }
+
+    const sendPromises = [
+      emailjs.send(serviceId, templateId, templateParams, { publicKey }),
+    ]
+
+    if (adminTemplateId) {
+      sendPromises.push(
+        emailjs.send(serviceId, adminTemplateId, templateParams, { publicKey })
+      )
+    }
+
+    Promise.all(sendPromises)
+      .then(() => {
+        setIsSending(false)
+        setIsSubmitted(true)
+      })
+      .catch((error) => {
+        console.log('EmailJS 發送失敗：', error)
+        alert('發送失敗，請稍後再試！')
+        setIsSending(false)
+      })
+  }
 
   return (
     <div className="rf-page">
@@ -99,72 +168,296 @@ export default function Refurbishment() {
       <section className="rf-hero">
         <div className="rf-hero-overlay" />
         <div className="rf-hero-content">
-          <p className="rf-hero-subtitle">RENOVATION & DESIGN</p>
-          <h1 className="rf-hero-title">舊屋翻新與設計</h1>
+          <p className="rf-hero-subtitle">OLD HOUSE RENOVATION</p>
+          <h1 className="rf-hero-title">老屋翻新專業服務</h1>
           <p className="rf-hero-desc">
-            從老屋改造到全室翻新，泰金閣以細膩工藝與創新設計，<br />
-            讓每一個空間重獲新生，煥發專屬生活美學。
+            從拆除清運到基礎工程，泰金閣四大專業工班全程把關，<br />
+            讓您的老屋煥然一新，重獲安全與美感。
           </p>
         </div>
       </section>
 
-      {/* ── Category Filter ── */}
-      <div className="rf-filter-bar">
-        <div className="rf-filter-inner">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`rf-cat-btn ${activeCategory === cat ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {cat}
-            </button>
-          ))}
+      {/* ── 前期宣導 Banner ── */}
+      <section className="rf-notice-bar">
+        <div className="rf-notice-inner">
+          <span className="rf-notice-icon">⚠️</span>
+          <p>
+            老屋翻新施工前必須先完成&nbsp;
+            <strong>舊屋拆除清運</strong>&nbsp;與&nbsp;
+            <strong>基礎結構（水電、排水、電路）評估</strong>，
+            確保工程安全與後續品質。
+          </p>
         </div>
-      </div>
+      </section>
 
-      {/* ── Main Gallery ── */}
-      <main className="rf-main">
-        <div className="rf-count-row">
-          <span className="rf-count">共 <strong>{filtered.length}</strong> 個案例</span>
+      {/* ── 服務說明區塊 ── */}
+      <section className="rf-services">
+        <div className="rf-section-inner">
+          <div className="rf-section-header">
+            <span className="rf-section-tag">SERVICE</span>
+            <h2 className="rf-section-title">核心服務項目</h2>
+            <p className="rf-section-sub">老屋翻新的兩大必要評估，我們為您專業把關</p>
+          </div>
+
+          <div className="rf-service-cards">
+            {services.map((svc) => (
+              <div key={svc.id} className="rf-service-card">
+                <div className="rf-service-icon">{svc.icon}</div>
+                <h3 className="rf-service-title">{svc.title}</h3>
+                <div className="rf-service-highlight">📌 {svc.highlight}</div>
+                <ul className="rf-service-points">
+                  {svc.points.map((pt, i) => (
+                    <li key={i}>{pt}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
 
-        <div className="rf-gallery">
-          {filtered.map((item) => (
-            <article
-              key={item.id}
-              className="rf-card"
-              onClick={() => navigate(`/refurbishment/${item.id}`)}
-            >
-              <div className="rf-card-img-wrap">
-                <img src={item.image} alt={item.title} className="rf-card-img" />
-                <span className="rf-card-badge">{item.category}</span>
-                <div className="rf-card-overlay">
-                  <span className="rf-card-view-btn">查看詳情 →</span>
+      {/* ── 工班配置 ── */}
+      <section className="rf-crews">
+        <div className="rf-section-inner">
+          <div className="rf-section-header">
+            <span className="rf-section-tag">OUR TEAM</span>
+            <h2 className="rf-section-title">四大工班專業配置</h2>
+            <p className="rf-section-sub">完整工班陣容，老屋翻新一站搞定</p>
+          </div>
+
+          <div className="rf-crew-grid">
+            {crewTeams.map((team) => (
+              <div key={team.id} className="rf-crew-card">
+                <div className="rf-crew-icon">{team.icon}</div>
+                <h3 className="rf-crew-name">{team.name}</h3>
+                <p className="rf-crew-desc">{team.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 互動預約表單 ── */}
+      <section className="rf-form-section" id="estimation-form">
+        <div className="rf-section-inner">
+          <div className="rf-section-header">
+            <span className="rf-section-tag">CONTACT US</span>
+            <h2 className="rf-section-title">老屋翻新免費評估預約</h2>
+            <p className="rf-section-sub">填寫以下資訊，我們將於近期主動回覆，為您安排現場評估</p>
+          </div>
+
+          {isSubmitted ? (
+            /* ── 送出成功畫面 ── */
+            <div className="rf-success-card">
+              <div className="rf-success-icon">✅</div>
+              <h3>預約成功！</h3>
+              <p>我們已收到您的評估需求，將盡快安排專人與您聯繫。</p>
+              <div className="rf-success-summary">
+                <div className="rf-summary-row">
+                  <span className="rf-summary-label">案場地點</span>
+                  <span className="rf-summary-value">{formData.project_location}</span>
+                </div>
+                <div className="rf-summary-row">
+                  <span className="rf-summary-label">案場坪數</span>
+                  <span className="rf-summary-value">{formData.project_size_ping} 坪</span>
+                </div>
+                <div className="rf-summary-row">
+                  <span className="rf-summary-label">是否有設計圖</span>
+                  <span className="rf-summary-value">{formData.has_design_blueprint}</span>
+                </div>
+                <div className="rf-summary-row">
+                  <span className="rf-summary-label">預計施工時間</span>
+                  <span className="rf-summary-value">{formData.expected_start_date}</span>
+                </div>
+                <div className="rf-summary-row">
+                  <span className="rf-summary-label">聯絡人</span>
+                  <span className="rf-summary-value">{formData.client_name}</span>
                 </div>
               </div>
-              <div className="rf-card-body">
-                <h2 className="rf-card-title">{item.title}</h2>
-                <div className="rf-card-meta">
-                  <span className="rf-meta-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-                    </svg>
-                    {item.location}
-                  </span>
-                  <span className="rf-meta-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 21V9" />
-                    </svg>
-                    {item.area}
-                  </span>
-                </div>
-                <div className="rf-card-style">{item.style}</div>
+              <button
+                className="rf-submit-btn"
+                onClick={() => {
+                  setFormData(initialForm)
+                  setIsSubmitted(false)
+                }}
+              >
+                重新填寫
+              </button>
+            </div>
+          ) : (
+            /* ── 預約表單 ── */
+            <form className="rf-form" onSubmit={handleSubmit} noValidate>
+              {/* 案場地點 */}
+              <div className="rf-form-group">
+                <label className="rf-label" htmlFor="rf-location">
+                  案場的地點 <span className="rf-required">*</span>
+                </label>
+                <select
+                  id="rf-location"
+                  name="project_location"
+                  value={formData.project_location}
+                  onChange={handleChange}
+                  className={`rf-select ${errors.project_location ? 'rf-input-error' : ''}`}
+                >
+                  <option value="" disabled>請選擇案場地點</option>
+                  {locationOptions.map((loc) => (
+                    <option key={loc} value={loc}>{loc}</option>
+                  ))}
+                </select>
+                {errors.project_location && (
+                  <span className="rf-error-msg">{errors.project_location}</span>
+                )}
               </div>
-            </article>
-          ))}
+
+              {/* 案場坪數 */}
+              <div className="rf-form-group">
+                <label className="rf-label" htmlFor="rf-size">
+                  案場坪數（坪） <span className="rf-required">*</span>
+                </label>
+                <input
+                  id="rf-size"
+                  type="number"
+                  name="project_size_ping"
+                  value={formData.project_size_ping}
+                  onChange={handleChange}
+                  placeholder="請輸入坪數，例：35"
+                  min="1"
+                  className={`rf-input ${errors.project_size_ping ? 'rf-input-error' : ''}`}
+                />
+                {errors.project_size_ping && (
+                  <span className="rf-error-msg">{errors.project_size_ping}</span>
+                )}
+              </div>
+
+              {/* 是否有設計圖 */}
+              <div className="rf-form-group">
+                <label className="rf-label">
+                  是否有設計圖 <span className="rf-required">*</span>
+                </label>
+                <div className={`rf-radio-group ${errors.has_design_blueprint ? 'rf-radio-error' : ''}`}>
+                  {['是', '否'].map((opt) => (
+                    <label key={opt} className="rf-radio-label">
+                      <input
+                        type="radio"
+                        name="has_design_blueprint"
+                        value={opt}
+                        checked={formData.has_design_blueprint === opt}
+                        onChange={handleChange}
+                      />
+                      <span className="rf-radio-custom" />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+                {errors.has_design_blueprint && (
+                  <span className="rf-error-msg">{errors.has_design_blueprint}</span>
+                )}
+              </div>
+
+              {/* 預計施工時間 */}
+              <div className="rf-form-group">
+                <label className="rf-label" htmlFor="rf-date">
+                  預計施工時間 <span className="rf-required">*</span>
+                </label>
+                <input
+                  id="rf-date"
+                  type="date"
+                  name="expected_start_date"
+                  value={formData.expected_start_date}
+                  onChange={handleChange}
+                  className={`rf-input ${errors.expected_start_date ? 'rf-input-error' : ''}`}
+                />
+                {errors.expected_start_date && (
+                  <span className="rf-error-msg">{errors.expected_start_date}</span>
+                )}
+              </div>
+
+              {/* 分隔線 */}
+              <div className="rf-form-divider">
+                <span>聯絡資訊</span>
+              </div>
+
+              {/* 客戶姓名 */}
+              <div className="rf-form-group">
+                <label className="rf-label" htmlFor="rf-name">
+                  姓名 <span className="rf-required">*</span>
+                </label>
+                <input
+                  id="rf-name"
+                  type="text"
+                  name="client_name"
+                  value={formData.client_name}
+                  onChange={handleChange}
+                  placeholder="請輸入您的姓名"
+                  className={`rf-input ${errors.client_name ? 'rf-input-error' : ''}`}
+                />
+                {errors.client_name && (
+                  <span className="rf-error-msg">{errors.client_name}</span>
+                )}
+              </div>
+
+              {/* 客戶電話 */}
+              <div className="rf-form-group">
+                <label className="rf-label" htmlFor="rf-phone">
+                  聯絡電話 <span className="rf-required">*</span>
+                </label>
+                <input
+                  id="rf-phone"
+                  type="tel"
+                  name="client_phone"
+                  value={formData.client_phone}
+                  onChange={handleChange}
+                  placeholder="例：0912-345-678"
+                  className={`rf-input ${errors.client_phone ? 'rf-input-error' : ''}`}
+                />
+                {errors.client_phone && (
+                  <span className="rf-error-msg">{errors.client_phone}</span>
+                )}
+              </div>
+
+              {/* 客戶 Email */}
+              <div className="rf-form-group">
+                <label className="rf-label" htmlFor="rf-email">
+                  Email <span className="rf-required">*</span>
+                </label>
+                <input
+                  id="rf-email"
+                  type="email"
+                  name="client_email"
+                  value={formData.client_email}
+                  onChange={handleChange}
+                  placeholder="回覆確認信將寄至此信箱"
+                  className={`rf-input ${errors.client_email ? 'rf-input-error' : ''}`}
+                />
+                {errors.client_email && (
+                  <span className="rf-error-msg">{errors.client_email}</span>
+                )}
+              </div>
+
+              {/* 送出按鈕 */}
+              <div className="rf-form-actions">
+                <button
+                  type="submit"
+                  className="rf-submit-btn"
+                  disabled={isSending}
+                >
+                  {isSending ? (
+                    <span className="rf-sending">
+                      <span className="rf-spinner" />
+                      發送中…
+                    </span>
+                  ) : (
+                    '送出免費評估申請 →'
+                  )}
+                </button>
+                <p className="rf-form-note">
+                  * 我們將於收到申請後的 1 個工作天內主動回覆
+                </p>
+              </div>
+            </form>
+          )}
         </div>
-      </main>
+      </section>
 
       {/* ── Footer ── */}
       <footer className="rf-footer">
@@ -176,7 +469,7 @@ export default function Refurbishment() {
           <div className="rf-footer-links">
             <a href="/">關於我們</a>
             <a href="/smart-customization">智能訂製全屋裝修</a>
-            <a href="/refurbishment">舊屋翻新與設計</a>
+            <a href="/refurbishment">老屋翻新</a>
             <a href="/inquiry">線上詢問</a>
           </div>
         </div>
