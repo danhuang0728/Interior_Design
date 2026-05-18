@@ -104,3 +104,11 @@
     margin-left: calc(var(--hex-width) / 2 + var(--hex-margin) * 2);
   }
 }
+
+/* Extra small Mobile screen adjustments to prevent horizontal overflow */
+@media (max-width: 480px) {
+  :root {
+    --hex-width: 150px;
+    --hex-margin: 4px;
+  }
+}

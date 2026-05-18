@@ -7,6 +7,7 @@ import RefurbishmentDetail from './pages/RefurbishmentDetail'
 import Inquiry from './pages/Inquiry'
 import WorkerAppointment from './pages/WorkerAppointment'
 import Home from './pages/Home'
+import SharedFooter from './components/SharedFooter'
 import './App.css'
 import './mainDesign.css'
 
@@ -17,9 +18,7 @@ function InquiryView() {
       <main className="main-content">
         <Inquiry />
       </main>
-      <footer className="footer">
-        <p>Copyright © 2026 泰金閣設計裝修工作室. All rights reserved.</p>
-      </footer>
+      <SharedFooter />
     </>
   )
 }

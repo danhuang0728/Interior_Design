@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import emailjs from '@emailjs/browser'
 import Navbar from './Navbar'
+import SharedFooter from './SharedFooter'
 import './Refurbishment.css'
 
 // ── 工班配置資料 ──────────────────────────────────────────────
@@ -28,6 +29,12 @@ const crewTeams = [
     icon: '⚡',
     name: '水電工班',
     desc: '水電設備、排水系統、電路全面評估，確保用電與管線安全。',
+  },
+  {
+    id: 'paint',
+    icon: '🎨',
+    name: '油漆工班',
+    desc: '全室批土油漆、特殊漆面處理，為空間點綴專屬色彩。',
   },
 ]
 
@@ -57,8 +64,20 @@ const services = [
   },
 ]
 
+// ── 報價清單資料 ──────────────────────────────────────────────
+const pricingData = [
+  { item: '保護工程', price: 'NT$300起/坪' },
+  { item: '天花板拆除', price: 'NT$800起/坪' },
+  { item: '磁磚拆除', price: 'NT$1,000起/坪(去皮) / NT$1,400起/坪(見底)' },
+  { item: '隔間牆拆除', price: 'NT$1,000起/坪' },
+  { item: '系統櫃、木作櫃拆除', price: 'NT$400起/坪' },
+  { item: '廚具拆除', price: 'NT$5,000起/套' },
+  { item: '衛浴設備拆除', price: 'NT$5,000起/套' },
+  { item: '廢棄物清運', price: 'NT$10,000起/車' },
+]
+
 // ── 地點選項 ──────────────────────────────────────────────────
-const locationOptions = ['竹南', '中彰投']
+const locationOptions = ['竹南', '台中', '彰化', '南投']
 
 // ── 初始表單狀態 ──────────────────────────────────────────────
 const initialForm = {
@@ -77,6 +96,7 @@ export default function Refurbishment() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSending, setIsSending] = useState(false)
   const [errors, setErrors] = useState({})
+  const [expandedCrew, setExpandedCrew] = useState(null)
 
   // ── 表單輸入處理 ──
   const handleChange = (e) => {
@@ -221,18 +241,83 @@ export default function Refurbishment() {
         <div className="rf-section-inner">
           <div className="rf-section-header">
             <span className="rf-section-tag">OUR TEAM</span>
-            <h2 className="rf-section-title">四大工班專業配置</h2>
+            <h2 className="rf-section-title">五大工班專業配置</h2>
             <p className="rf-section-sub">完整工班陣容，老屋翻新一站搞定</p>
           </div>
 
           <div className="rf-crew-grid">
             {crewTeams.map((team) => (
-              <div key={team.id} className="rf-crew-card">
+              <div 
+                key={team.id} 
+                className={`rf-crew-card ${expandedCrew === team.id ? 'active' : ''}`}
+                onClick={() => {
+                  if (team.id === 'paint') {
+                    setExpandedCrew(expandedCrew === 'paint' ? null : 'paint')
+                  }
+                }}
+                style={{ cursor: team.id === 'paint' ? 'pointer' : 'default' }}
+              >
                 <div className="rf-crew-icon">{team.icon}</div>
                 <h3 className="rf-crew-name">{team.name}</h3>
                 <p className="rf-crew-desc">{team.desc}</p>
+                {team.id === 'paint' && (
+                  <div className="rf-crew-action">
+                    {expandedCrew === 'paint' ? '收起展示 ▴' : '點擊查看展示 ▾'}
+                  </div>
+                )}
               </div>
             ))}
+          </div>
+
+          {/* 油漆展示區塊 (展開時顯示) */}
+          {expandedCrew === 'paint' && (
+            <div className="rf-paint-gallery">
+              <h3 className="rf-paint-gallery-title">油漆工班 - 作品展示</h3>
+              <div className="rf-paint-gallery-grid">
+                <div className="rf-paint-placeholder">
+                  <span>展示圖 1 (預留)</span>
+                </div>
+                <div className="rf-paint-placeholder">
+                  <span>展示圖 2 (預留)</span>
+                </div>
+                <div className="rf-paint-placeholder">
+                  <span>展示圖 3 (預留)</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── 拆除工程報價表 ── */}
+      <section className="rf-pricing">
+        <div className="rf-section-inner">
+          <div className="rf-section-header">
+            <span className="rf-section-tag">PRICING</span>
+            <h2 className="rf-section-title">拆除清運工程參考報價</h2>
+            <p className="rf-section-sub">透明化收費標準，實際報價依現場評估為主</p>
+          </div>
+
+          <div className="rf-pricing-table-wrapper">
+            <table className="rf-pricing-table">
+              <thead>
+                <tr>
+                  <th>項目</th>
+                  <th>價格 / 計算單位</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pricingData.map((row, index) => (
+                  <tr key={index}>
+                    <td>{row.item}</td>
+                    <td>{row.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="rf-pricing-note">
+              * 備註：實際價格會依照區域、天氣狀況、人力、物價、樓層與拆除易難度等情況有所不同，價格僅供參考，依實際報價為主。
+            </p>
           </div>
         </div>
       </section>
@@ -451,7 +536,7 @@ export default function Refurbishment() {
                   )}
                 </button>
                 <p className="rf-form-note">
-                  * 我們將於收到申請後的 1 個工作天內主動回覆
+                  * 我們將於收到申請後的 3 個工作天內主動回覆
                 </p>
               </div>
             </form>
@@ -460,23 +545,7 @@ export default function Refurbishment() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="rf-footer">
-        <div className="rf-footer-inner">
-          <div className="rf-footer-brand">
-            <span className="rf-footer-logo">泰金閣設計裝修工作室</span>
-            <p>以智能訂製、全屋裝修為理念，打造每個家庭的專屬空間</p>
-          </div>
-          <div className="rf-footer-links">
-            <a href="/">關於我們</a>
-            <a href="/smart-customization">智能訂製全屋裝修</a>
-            <a href="/refurbishment">老屋翻新</a>
-            <a href="/inquiry">線上詢問</a>
-          </div>
-        </div>
-        <div className="rf-footer-copy">
-          Copyright © 2026 泰金閣設計裝修工作室. All rights reserved.
-        </div>
-      </footer>
+      <SharedFooter />
     </div>
   )
 }

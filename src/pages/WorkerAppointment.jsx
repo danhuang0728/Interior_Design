@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import Navbar from '../components/Navbar';
+import SharedFooter from '../components/SharedFooter';
 import './WorkerAppointment.css';
 
 export const WorkerAppointment = () => {
@@ -322,9 +323,7 @@ export const WorkerAppointment = () => {
           </div>
         </section>
       </main>
-      <footer className="footer">
-        <p>Copyright © 2026 泰金閣設計裝修工作室. All rights reserved.</p>
-      </footer>
+      <SharedFooter />
     </>
   );
 };

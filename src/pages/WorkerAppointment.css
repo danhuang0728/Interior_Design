@@ -3,9 +3,10 @@
 }
 
 .worker-appointment-main {
-  min-height: calc(100vh - 80px); /* Adjust based on navbar/footer */
-  background-color: #fcfcfc;
+  min-height: calc(100vh - 80px);
+  background-color: #f9f8f6;
   padding-bottom: 4rem;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 .wa-hero {
@@ -66,7 +67,7 @@
   display: block;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #333;
+  color: #1a1208;
   margin-bottom: 0.75rem;
 }
 
@@ -79,20 +80,21 @@
 .wa-textarea {
   width: 100%;
   padding: 0.8rem 1rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #ede9e0;
   border-radius: 6px;
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.3s ease;
-  background-color: #fafafa;
+  background-color: #fdfdfc;
+  color: #1a1208;
 }
 
 .wa-input:focus,
 .wa-textarea:focus {
   outline: none;
-  border-color: #333;
+  border-color: #a0522d;
   background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
 }
 
 .wa-checkbox-group {
@@ -114,7 +116,7 @@
   margin-right: 0.5rem;
   width: 18px;
   height: 18px;
-  accent-color: #333;
+  accent-color: #a0522d;
 }
 
 .wa-radio-group {
@@ -130,7 +132,7 @@
 }
 
 .wa-btn {
-  background-color: #333;
+  background-color: #a0522d;
   color: white;
   border: none;
   padding: 1rem 2.5rem;
@@ -143,7 +145,7 @@
 }
 
 .wa-btn:hover {
-  background-color: #000;
+  background-color: #8b4513;
   transform: translateY(-2px);
 }
 
@@ -164,8 +166,8 @@
 }
 
 .wa-summary {
-  background-color: #f9f9f9;
-  border-left: 4px solid #333;
+  background-color: #faf9f6;
+  border-left: 4px solid #a0522d;
   padding: 2rem;
   margin: 2rem 0;
   text-align: left;
@@ -175,7 +177,7 @@
 .wa-summary h3 {
   margin-bottom: 1.5rem;
   font-size: 1.2rem;
-  color: #333;
+  color: #1a1208;
 }
 
 .wa-summary ul {
@@ -191,7 +193,7 @@
 }
 
 .wa-summary strong {
-  color: #333;
+  color: #1a1208;
   display: inline-block;
   min-width: 120px;
 }
@@ -211,8 +213,8 @@
 
 /* Info Section Styles */
 .wa-info-section {
-  background-color: #333;
-  color: white;
+  background-color: #1a1208;
+  color: #fdfdfc;
   padding: 5rem 0;
   margin-top: 5rem;
 }

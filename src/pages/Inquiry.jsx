@@ -1,71 +1,62 @@
-import ChatWidget from '../components/ChatWidget'
-import { chatBridgeConfig, lineContact } from '../data/inquiry-config'
+import React from 'react'
 import './Inquiry.css'
 
-const infoCards = [
-  {
-    title: <strong> <span style={{ color: '#C0392B' }}>建議先提供</span> </strong>,
-    description: '空間類型、坪數、需求重點、預算區間與預計入住時間。',
-  },
-  {
-    title: <strong> <span style={{ color: '#C0392B' }}>回覆方式</span> </strong>,
-    description: '第一版先展示網站端聊天介面，後續可延伸為 LINE 或客服後台。',
-  },
-  {
-    title: <strong> <span style={{ color: '#C0392B' }}>適合用途</span> </strong>,
-    description: '初步詢問流程、預約丈量、報價說明與案件篩選都很適合放在這裡。',
-  },
-]
-
-function Inquiry() {
+export default function Inquiry() {
   return (
-    <section className="inquiry-page">
-      <div className="inquiry-hero">
-        <div className="inquiry-copy">
-          <span className="inquiry-kicker">Online Inquiry</span>
-          <h1>
-            <span style={{ color: '#C0392B' }}>線上詢問</span>
-          </h1>
-          <p>
-            目前以網站前端展示為主，讓廠商能先看到實際客服互動流程。
+    <div className="inq-page">
+      {/* ── Hero Section ── */}
+      <section className="inq-hero">
+        <div className="inq-hero-content">
+          <span className="inq-eyebrow">CONSULTATION</span>
+          <h1 className="inq-title">準備好開啟您的<br />專屬設計旅程了嗎？</h1>
+          <p className="inq-subtitle">
+            無論是老屋翻新、智能全屋訂製，或是局部裝修，<br />
+            泰金閣設計團隊都在這裡傾聽您的需求。
           </p>
         </div>
+      </section>
 
-        <div className="inquiry-meta">
-          <p>目前模式</p>
-          <strong>{chatBridgeConfig.mode === 'demo' ? '前端展示版' : '正式串接版'}</strong>
-          <span>未來 API：{chatBridgeConfig.futureApiBase}</span>
-          <span>目標通路：{chatBridgeConfig.futureProvider}</span>
+      {/* ── Core Values Section ── */}
+      <section className="inq-features">
+        <div className="inq-features-inner">
+          <div className="inq-feature-card">
+            <div className="inq-feature-icon">✨</div>
+            <h3>免費初步諮詢</h3>
+            <p>了解您的生活習慣與風格偏好，為您提供最適合的初步空間動線建議，讓設計更貼近生活。</p>
+          </div>
+          <div className="inq-feature-card">
+            <div className="inq-feature-icon">📋</div>
+            <h3>透明化初步報價</h3>
+            <p>透過 LINE 傳送現場照片與坪數資訊，我們能為您快速評估並提供初步預算範圍，避免後續超支。</p>
+          </div>
+          <div className="inq-feature-card">
+            <div className="inq-feature-icon">🤝</div>
+            <h3>專屬一對一服務</h3>
+            <p>由專業設計師親自與您對接討論，從初步概念到後續施工細節，解決所有關於裝修的疑難雜症。</p>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="inquiry-info-grid">
-        {infoCards.map((card) => (
-          <article key={card.title} className="inquiry-info-card">
-            <h2>{card.title}</h2>
-            <p>{card.description}</p>
-          </article>
-        ))}
-      </div>
-
-      <div className="inquiry-layout">
-        <ChatWidget />
-
-        <aside className="inquiry-sidebar">
-          <section className="line-card">
-            <span className="line-card__label">LINE 規劃</span>
-            <h2>{lineContact.title}</h2>
-            <p>{lineContact.description}</p>
-            <div className="line-card__friend-id">預計帳號：{lineContact.friendId}</div>
-            <button type="button" className="line-card__button">
-              LINE 加好友按鈕
-            </button>
-            
-          </section>
-        </aside>
-      </div>
-    </section>
+      {/* ── CTA Section ── */}
+      <section className="inq-cta">
+        <div className="inq-cta-content">
+          <h2>現在就與我們聊聊！</h2>
+          <p>
+            點擊下方按鈕加入我們的官方 LINE 帳號，<br />
+            發送一則貼圖或您的初步需求，設計師將會盡快親自回覆您！
+          </p>
+          {/* 填寫 line帳號連結 */}
+          <a
+            href="https://line.me/ti/p/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inq-line-btn"
+          >
+            <span className="inq-line-icon">💬</span>
+            前往 LINE 線上諮詢
+          </a>
+        </div>
+      </section>
+    </div>
   )
 }
-
-export default Inquiry

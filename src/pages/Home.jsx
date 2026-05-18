@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import SharedFooter from '../components/SharedFooter';
 import './Home.css';
 
 const SERVICES = [
@@ -161,7 +162,7 @@ function Home() {
             <h2 className="wb-cta-title">準備好開啟您的<br />專屬設計旅程了嗎？</h2>
             <p className="wb-cta-sub">與我們的設計團隊預約免費初步諮詢，討論您的居家夢想。</p>
             <Link to="/inquiry" className="wb-cta-btn">
-              <span>立即線上諮詢</span>
+              <span>開始您的裝修旅程</span>
               <span className="wb-cta-btn-arrow">→</span>
             </Link>
             <div className="wb-cta-deco-line" />
@@ -170,23 +171,7 @@ function Home() {
 
       </main>
 
-      <footer className="home-footer">
-        <div className="home-footer-inner">
-          <div className="home-footer-brand">
-            <span className="home-footer-logo">泰金閣設計裝修工作室</span>
-            <p>以智能訂製、全屋裝修為理念，打造每個家庭的專屬空間。</p>
-          </div>
-          <div className="home-footer-links">
-            <Link to="/smart-customization">智能訂製全屋裝修</Link>
-            <Link to="/worker-appointment">工班預約</Link>
-            <Link to="/refurbishment">舊屋翻新與設計</Link>
-            <Link to="/inquiry">線上詢問</Link>
-          </div>
-        </div>
-        <div className="home-footer-copy">
-          Copyright © 2026 泰金閣設計裝修工作室. All rights reserved.
-        </div>
-      </footer>
+      <SharedFooter />
     </div>
   );
 }

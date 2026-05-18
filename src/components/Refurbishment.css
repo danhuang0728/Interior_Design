@@ -218,7 +218,7 @@
 
 .rf-crew-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
 }
 
@@ -266,6 +266,112 @@
   color: #777;
   margin: 0;
   line-height: 1.65;
+}
+
+.rf-crew-action {
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 0.8rem;
+  color: #a0522d;
+  font-weight: 600;
+}
+
+/* ── Paint Gallery (展開區塊) ───────────────── */
+.rf-paint-gallery {
+  margin-top: 40px;
+  padding: 32px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #ede9e0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  animation: rf-slide-down 0.4s ease-out forwards;
+}
+
+@keyframes rf-slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rf-paint-gallery-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1a1208;
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.rf-paint-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .rf-paint-gallery-grid { grid-template-columns: 1fr; }
+}
+
+.rf-paint-placeholder {
+  background: #f0ece3;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a0522d;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 2px dashed #d5c8b5;
+}
+
+/* ── Pricing Table ──────────────────────────── */
+.rf-pricing {
+  background: #faf9f6;
+}
+
+.rf-pricing-table-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+}
+
+.rf-pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.rf-pricing-table th,
+.rf-pricing-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ede9e0;
+}
+
+.rf-pricing-table th {
+  font-weight: 700;
+  color: #1a1208;
+  background: #fdfbf7;
+}
+
+.rf-pricing-table td {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.rf-pricing-table tr:last-child td {
+  border-bottom: none;
+}
+
+.rf-pricing-note {
+  font-size: 0.8rem;
+  color: #888;
+  line-height: 1.6;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px dashed #ede9e0;
 }
 
 /* ── Form Section ───────────────────────────── */

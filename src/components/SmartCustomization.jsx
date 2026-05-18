@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
+import SharedFooter from './SharedFooter'
 import './SmartCustomization.css'
 
 import roomModern from '../img/room_modern.png'
@@ -208,24 +209,7 @@ export default function SmartCustomization() {
       </main>
 
       {/* ── Footer ── */}
-      <footer className="sc-footer">
-        <div className="sc-footer-inner">
-          <div className="sc-footer-brand">
-            <span className="sc-footer-logo">泰金閣設計裝修工作室</span>
-            <p>以智能訂製、全屋裝修為理念，打造每個家庭的專屬空間</p>
-          </div>
-          <div className="sc-footer-links">
-            <a href="#">關於我們</a>
-            <a href="#">智能訂製全屋裝修</a>
-            <a href="/refurbishment">舊屋翻新與設計</a>
-            <a href="/worker-appointment">工班預約</a>
-            <a href="/inquiry">線上詢問</a>
-          </div>
-        </div>
-        <div className="sc-footer-copy">
-          Copyright © 2026 泰金閣設計裝修工作室. All rights reserved.
-        </div>
-      </footer>
+      <SharedFooter />
     </div>
   )
 }
