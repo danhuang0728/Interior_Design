@@ -1,7 +1,10 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import SmartCustomization from './components/SmartCustomization'
-import SmartCustomizationDetail from './pages/SmartCustomizationDetail'
+import SmartCustomizationModern from './pages/SmartCustomizationModern'
+import SmartCustomizationNordic from './pages/SmartCustomizationNordic'
+import SmartCustomizationAmerican from './pages/SmartCustomizationAmerican'
+import SmartCustomizationOffice from './pages/SmartCustomizationOffice'
 import Refurbishment from './components/Refurbishment'
 import RefurbishmentDetail from './pages/RefurbishmentDetail'
 import Inquiry from './pages/Inquiry'
@@ -29,8 +32,11 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/inquiry" element={<InquiryView />} />
       <Route path="/smart-customization" element={<SmartCustomization />} />
+      <Route path="/smart-customization/modern" element={<SmartCustomizationModern />} />
+      <Route path="/smart-customization/nordic" element={<SmartCustomizationNordic />} />
+      <Route path="/smart-customization/american" element={<SmartCustomizationAmerican />} />
+      <Route path="/smart-customization/office" element={<SmartCustomizationOffice />} />
       <Route path="/worker-appointment" element={<WorkerAppointment />} />
-      <Route path="/smart-customization/:id" element={<SmartCustomizationDetail />} />
       <Route path="/refurbishment" element={<Refurbishment />} />
       <Route path="/refurbishment/:id" element={<RefurbishmentDetail />} />
     </Routes>

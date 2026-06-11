@@ -19,8 +19,6 @@ const dropdownFilters = [
 ]
 
 const tagFilters = [
-  { label: '小坪數', count: 19 },
-  { label: '1–2房', count: 18 },
   //{ label: '3房', count: 24 },
   //{ label: '4房以上', count: 10 }
 ]
@@ -34,6 +32,7 @@ const designs = [
     style: '現代簡約',
     tag: '小坪數',
     brand: '智能訂製',
+    path: 'modern',
   },
   {
     id: 2,
@@ -42,6 +41,7 @@ const designs = [
     style: '北歐風',
     tag: '3房',
     brand: '智能訂製',
+    path: 'nordic',
   },
   {
     id: 3,
@@ -50,6 +50,7 @@ const designs = [
     style: '美式風',
     tag: '1–2房',
     brand: '智能訂製',
+    path: 'american',
   },
   {
     id: 4,
@@ -58,117 +59,18 @@ const designs = [
     style: '商辦空間',
     tag: '1–2房',
     brand: '智能訂製',
+    path: 'office',
   },
 ]
 
 // ── Component ────────────────────────────────────────────────
 export default function SmartCustomization() {
-  const [activeDropdown, setActiveDropdown] = useState(null)
   const navigate = useNavigate()
-  const [selectedDropdowns, setSelectedDropdowns] = useState({})
-  const [selectedTag, setSelectedTag] = useState(null)
-
-  const toggleDropdown = (label) => {
-    setActiveDropdown((prev) => (prev === label ? null : label))
-  }
-
-  const selectOption = (filterLabel, option) => {
-    setSelectedDropdowns((prev) => ({ ...prev, [filterLabel]: option }))
-    setActiveDropdown(null)
-  }
-
-  const toggleTag = (tag) => {
-    setSelectedTag((prev) => (prev === tag ? null : tag))
-  }
-
-  // Filtered gallery
-  const filteredDesigns = designs.filter((d) => {
-    const styleMatch =
-      !selectedDropdowns['需家偏好'] ||
-      selectedDropdowns['需家偏好'] === '全部風格' ||
-      d.style === selectedDropdowns['需家偏好']
-    const tagMatch = !selectedTag || d.tag === selectedTag
-    return styleMatch && tagMatch
-  })
 
   return (
     <div className="sc-page">
       <Navbar />
 
-      {/* ── Filter Bar ── */}
-      <div className="sc-filter-bar">
-        <div className="sc-filter-inner">
-          {/* Dropdown filters */}
-          <div className="sc-dropdowns">
-            {dropdownFilters.map((f) => (
-              <div key={f.label} className="sc-dropdown-wrap">
-                <button
-                  className={`sc-dropdown-btn ${activeDropdown === f.label ? 'active' : ''}`}
-                  onClick={() => toggleDropdown(f.label)}
-                >
-                  {selectedDropdowns[f.label] || f.label}
-                  <svg
-                    className={`sc-chevron ${activeDropdown === f.label ? 'open' : ''}`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
-                {activeDropdown === f.label && (
-                  <ul className="sc-dropdown-menu">
-                    {f.options.map((opt) => (
-                      <li
-                        key={opt}
-                        className={`sc-dropdown-item ${selectedDropdowns[f.label] === opt ? 'selected' : ''
-                          }`}
-                        onClick={() => selectOption(f.label, opt)}
-                      >
-                        {opt}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Tag filters */}
-          <div className="sc-tags">
-            {tagFilters.map((t) => (
-              <button
-                key={t.label}
-                className={`sc-tag ${selectedTag === t.label ? 'active' : ''}`}
-                onClick={() => toggleTag(t.label)}
-              >
-                {t.label}
-                <span className="sc-tag-count">{t.count}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Search row */}
-          <div className="sc-search-row">
-            <span className="sc-search-label">已選類別</span>
-            <button
-              className="sc-search-btn"
-              onClick={() => {
-                setSelectedDropdowns({})
-                setSelectedTag(null)
-              }}
-            >
-              CLEAR ALL
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* ── Main Content ── */}
       <main className="sc-main">
@@ -186,9 +88,9 @@ export default function SmartCustomization() {
 
         {/* Gallery grid */}
         <div className="sc-gallery">
-          {filteredDesigns.length > 0 ? (
-            filteredDesigns.map((d) => (
-              <div key={d.id} className="sc-card" onClick={() => navigate(`/smart-customization/${d.id}`)}>
+          {designs.length > 0 ? (
+            designs.map((d) => (
+              <div key={d.id} className="sc-card" onClick={() => navigate(`/smart-customization/${d.path}`)}>
                 <div className="sc-card-img-wrap">
                   <img src={d.image} alt={d.title} className="sc-card-img" />
                   <span className="sc-card-style-badge">{d.style}</span>

@@ -53,7 +53,7 @@ function Home() {
     const rect = heroRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     cursorRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
   };
 
@@ -62,9 +62,9 @@ function Home() {
       <Navbar />
 
       {/* ── Hero: Abstract Geometric Design ── */}
-      <section 
-        className="home-hero" 
-        ref={heroRef} 
+      <section
+        className="home-hero"
+        ref={heroRef}
         onMouseMove={handleMouseMove}
       >
         <div className="cursor-ring" ref={cursorRef} />
@@ -146,7 +146,7 @@ function Home() {
         <section className="hexagon-section reveal">
           <h2 className="hexagon-section-title text-center">我們的團隊</h2>
           <div className="hexagon-grid">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num, i) =>   (
+            {[1, 2, 3, 4, 5].map((num, i) => (
               <div className="hexagon" key={i}>
                 <img src={`/presale/p${num}_cover.png`} alt={`案例 ${i + 1}`} loading="lazy" />
               </div>

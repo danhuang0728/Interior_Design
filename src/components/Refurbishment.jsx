@@ -36,6 +36,12 @@ const crewTeams = [
     name: '油漆工班',
     desc: '精工特殊漆藝，專擅司曼特、雲絨漆等溫潤手感紋理，營造極致的侘寂氛圍。',
   },
+  {
+    id: 'ac',
+    icon: '❄️',
+    name: '冷氣空調設備工程',
+    desc: '提供分離式、吊隱式冷氣及全熱交換器等空調系統評估與安裝，確保冷房效率與舒適度。',
+  },
 ]
 
 // ── 服務說明資料 ──────────────────────────────────────────────
@@ -241,7 +247,7 @@ export default function Refurbishment() {
         <div className="rf-section-inner">
           <div className="rf-section-header">
             <span className="rf-section-tag">OUR TEAM</span>
-            <h2 className="rf-section-title">五大工班專業配置</h2>
+            <h2 className="rf-section-title">六大工班專業配置</h2>
             <p className="rf-section-sub">完整工班陣容，老屋翻新一站搞定</p>
           </div>
 

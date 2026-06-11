@@ -3,8 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import './SmartCustomizationDetail.css';
 
-function SmartCustomizationDetail() {
-  const { id } = useParams();
+function SmartCustomizationNordic() {
   const navigate = useNavigate();
 
   // Scroll to top on mount
@@ -167,7 +166,7 @@ function SmartCustomizationDetail() {
           ← 返回智能訂製列表
         </button>
         <h1 className="preview-title">智能訂製 • 全屋裝修</h1>
-        <p className="preview-subtitle">方案 #{id || 'A01'} - 現代簡約</p>
+        <p className="preview-subtitle">方案 #2 - 北歐風</p>
       </div>
 
       <main className="configurator-main vertical-layout">
@@ -370,4 +369,4 @@ function SmartCustomizationDetail() {
   );
 }
 
-export default SmartCustomizationDetail;
+export default SmartCustomizationNordic;
