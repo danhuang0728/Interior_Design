@@ -1,8 +1,14 @@
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import emailjs from '@emailjs/browser'
 import Navbar from './Navbar'
 import SharedFooter from './SharedFooter'
 import './Refurbishment.css'
+
+import paintImg1 from '../img/paint/paint_real_1.jpg'
+import paintImg2 from '../img/paint/paint_real_2.jpg'
+import paintImg3 from '../img/paint/paint_real_3.jpg'
+import paintImg4 from '../img/paint/paint_real_4.jpg'
+import paintImg5 from '../img/paint/paint_real_5.jpg'
 
 // ── 工班配置資料 ──────────────────────────────────────────────
 const crewTeams = [
@@ -253,45 +259,52 @@ export default function Refurbishment() {
 
           <div className="rf-crew-grid">
             {crewTeams.map((team) => (
-              <div 
-                key={team.id} 
-                className={`rf-crew-card ${expandedCrew === team.id ? 'active' : ''}`}
-                onClick={() => {
-                  if (team.id === 'paint') {
-                    setExpandedCrew(expandedCrew === 'paint' ? null : 'paint')
-                  }
-                }}
-                style={{ cursor: team.id === 'paint' ? 'pointer' : 'default' }}
-              >
-                <div className="rf-crew-icon">{team.icon}</div>
-                <h3 className="rf-crew-name">{team.name}</h3>
-                <p className="rf-crew-desc">{team.desc}</p>
-                {team.id === 'paint' && (
-                  <div className="rf-crew-action">
-                    {expandedCrew === 'paint' ? '收起展示 ▴' : '點擊查看展示 ▾'}
+              <Fragment key={team.id}>
+                <div 
+                  className={`rf-crew-card ${expandedCrew === team.id ? 'active' : ''}`}
+                  onClick={() => {
+                    if (team.id === 'paint') {
+                      setExpandedCrew(expandedCrew === 'paint' ? null : 'paint')
+                    }
+                  }}
+                  style={{ cursor: team.id === 'paint' ? 'pointer' : 'default' }}
+                >
+                  <div className="rf-crew-icon">{team.icon}</div>
+                  <h3 className="rf-crew-name">{team.name}</h3>
+                  <p className="rf-crew-desc">{team.desc}</p>
+                  {team.id === 'paint' && (
+                    <div className="rf-crew-action">
+                      {expandedCrew === 'paint' ? '收起展示 ▴' : '點擊查看展示 ▾'}
+                    </div>
+                  )}
+                </div>
+
+                {/* 油漆展示區塊 (展開時顯示) */}
+                {team.id === 'paint' && expandedCrew === 'paint' && (
+                  <div className="rf-paint-gallery">
+                    <h3 className="rf-paint-gallery-title">油漆工班 - 作品展示</h3>
+                    <div className="rf-paint-gallery-grid">
+                      <div className="rf-paint-img-wrap">
+                        <img src={paintImg1} alt="油漆色卡展示 1" className="rf-paint-img" />
+                      </div>
+                      <div className="rf-paint-img-wrap">
+                        <img src={paintImg5} alt="油漆色卡展示 2" className="rf-paint-img" />
+                      </div>
+                      <div className="rf-paint-img-wrap">
+                        <img src={paintImg2} alt="客廳油漆展示" className="rf-paint-img" />
+                      </div>
+                      <div className="rf-paint-img-wrap">
+                        <img src={paintImg3} alt="商辦油漆展示" className="rf-paint-img" />
+                      </div>
+                      <div className="rf-paint-img-wrap">
+                        <img src={paintImg4} alt="靠窗油漆展示" className="rf-paint-img" />
+                      </div>
+                    </div>
                   </div>
                 )}
-              </div>
+              </Fragment>
             ))}
           </div>
-
-          {/* 油漆展示區塊 (展開時顯示) */}
-          {expandedCrew === 'paint' && (
-            <div className="rf-paint-gallery">
-              <h3 className="rf-paint-gallery-title">油漆工班 - 作品展示</h3>
-              <div className="rf-paint-gallery-grid">
-                <div className="rf-paint-placeholder">
-                  <span>展示圖 1 (預留)</span>
-                </div>
-                <div className="rf-paint-placeholder">
-                  <span>展示圖 2 (預留)</span>
-                </div>
-                <div className="rf-paint-placeholder">
-                  <span>展示圖 3 (預留)</span>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
