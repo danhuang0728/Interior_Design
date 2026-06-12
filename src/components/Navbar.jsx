@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import './Navbar.css'
-import logoOnly from '../img/logoOnly.jpg'
+import logoOnly from '../img/logo.png'
 
 const navLinks = [
     { label: '關於我們', to: '/' },
