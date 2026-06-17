@@ -5,7 +5,7 @@
 .hexagon-section {
   padding: 60px 0 80px;
   background: #fafafa;
-  overflow: hidden; /* prevents shifting items from causing horizontal scroll */
+  overflow: hidden;
 }
 
 .hexagon-section-title {
@@ -19,32 +19,37 @@
 
 /* ── Hexagon Core Variables ───────────────────── */
 :root {
-  /* Use clamp to allow proportional scaling on smaller screens while capping at 200px */
   --hex-width: clamp(50px, 18vw, 200px); 
-  /* Height is width * (2 / sqrt(3)) ≈ width * 1.1547 */
   --hex-height: calc(var(--hex-width) * 1.1547);
   --hex-margin: clamp(2px, 0.8vw, 6px);
 }
 
-/* ── Honeycomb Grid Layout ───────────────────── */
+/* ── Honeycomb Grid — Two-row layout ─────────── */
+/* Row 1 and Row 2 are separate flex containers for clean centering */
 .hexagon-grid {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
   margin: 0 auto;
-  padding: 0;
-  box-sizing: content-box;
+}
+
+.hexagon-row {
+  display: flex;
   justify-content: center;
-  /* Always 5 columns layout */
-  width: calc((var(--hex-width) + 2 * var(--hex-margin)) * 5);
-  max-width: 100%;
+}
+
+/* Each subsequent row is pulled up so it interlocks into the valleys of the
+   row above (3-2-3 staggered honeycomb). Centering handles the half-step
+   horizontal offset automatically because adjacent rows differ by one hexagon. */
+.hexagon-row + .hexagon-row {
+  margin-top: calc(var(--hex-height) * -0.26);
 }
 
 .hexagon {
   width: var(--hex-width);
   height: var(--hex-height);
   margin: var(--hex-margin);
-  /* The overlap moves the next row up to lock with the previous */
-  margin-bottom: calc(var(--hex-height) * -0.22);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   cursor: pointer;
   background: #ddd;
@@ -64,14 +69,6 @@
   filter: brightness(1.08);
   z-index: 10;
   position: relative;
-}
-
-/* Row 1: 5 items (1-5) 
-   Row 2: 4 items (6-9)  offset by half a hexagon
-   -> Group size = 9 
-   Offset item = 6th, 15th, 24th... -> 9n + 6 */
-.hexagon:nth-child(9n + 6) {
-  margin-left: calc(var(--hex-width) / 2 + var(--hex-margin) * 2);
 }
 
 @media (max-width: 768px) {

@@ -11,7 +11,7 @@ export default function Inquiry() {
           <h1 className="inq-title">準備好開啟您的<br />專屬設計旅程了嗎？</h1>
           <p className="inq-subtitle">
             無論是老屋翻新、智能全屋訂製，或是局部裝修，<br />
-            泰金閣設計團隊都在這裡傾聽您的需求。
+            東泰金閣設計團隊都在這裡傾聽您的需求。
           </p>
         </div>
       </section>

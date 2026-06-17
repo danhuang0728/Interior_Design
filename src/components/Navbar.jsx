@@ -19,7 +19,7 @@ function Navbar() {
             {/* Logo 區塊（左上角） */}
             <Link to="/" className="navbar-logo">
                 <span className="logo-icon"><img src={logoOnly} alt="" /></span>
-                <span className="logo-text">泰金閣設計裝修工作室</span>
+                <span className="logo-text">東泰金閣空間規劃工作室</span>
             </Link>
 
             <button

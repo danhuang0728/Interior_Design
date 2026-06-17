@@ -203,7 +203,7 @@ export default function Refurbishment() {
           <p className="rf-hero-subtitle">OLD HOUSE RENOVATION</p>
           <h1 className="rf-hero-title">老屋翻新專業服務</h1>
           <p className="rf-hero-desc">
-            從拆除清運到基礎工程，泰金閣四大專業工班全程把關，<br />
+            從拆除清運到基礎工程，東泰金閣四大專業工班全程把關，<br />
             讓您的老屋煥然一新，重獲安全與美感。
           </p>
         </div>

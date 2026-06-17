@@ -360,7 +360,6 @@ function SmartCustomizationModern() {
           <span className="summary-price">NT$ {calculateTotal().toLocaleString()}</span>
         </div>
         <div className="summary-right">
-          <button className="summary-btn outline">儲存配置清單</button>
           <button className="summary-btn primary">預約諮詢此方案</button>
         </div>
       </div>

@@ -7,7 +7,7 @@ export default function SharedFooter() {
     <footer className="shared-footer">
       <div className="shared-footer-inner">
         <div className="shared-footer-brand">
-          <span className="shared-footer-logo">泰金閣設計裝修工作室</span>
+          <span className="shared-footer-logo">東泰金閣空間規劃工作室</span>
           <p>以智能訂製、全屋裝修為理念，打造每個家庭的專屬空間</p>
         </div>
         <div className="shared-footer-links">
@@ -19,7 +19,7 @@ export default function SharedFooter() {
         </div>
       </div>
       <div className="shared-footer-copy">
-        Copyright © 2026 泰金閣設計裝修工作室. All rights reserved.
+        Copyright © 2026 東泰金閣空間規劃工作室. All rights reserved.
       </div>
     </footer>
   )
