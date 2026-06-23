@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import './SmartCustomizationDetail.css';
 
@@ -12,150 +12,188 @@ function SmartCustomizationNordic() {
   }, []);
 
   // ─── Configuration State ───
+  // 每個空間的選配品項（複選）
   const [config, setConfig] = useState({
-    tvCabinet: '電視牆',
-    livingRoomSide: [],
-    masterBed: [],
-    secondBed: [],
-    kitchen: []
+    livingRoom: [],
+    studyRoom: [],
+    diningRoom: [],
+    dressingRoom: []
   });
 
-  // ─── Preview Images State ───
-  // Each category has its own preview image on the left.
-  const [previewImgs, setPreviewImgs] = useState({
-    tvCabinet: '/customization/tv-cabinet-wall.jpg',
-    livingRoomSide: '/presale/p4_cover.png',
-    masterBed: '/presale/p6_cover.png',
-    secondBed: '/presale/p8_cover.png',
-    kitchen: '/presale/p1_cover.png'
-  });
-
-  // Helpers to toggle arrays
-  const toggleArrayOption = (category, option, imgPath) => {
+  // ─── Toggle 選項 ───
+  const toggleOption = (category, label) => {
     setConfig(prev => {
       const currentList = prev[category];
-      if (currentList.includes(option)) {
-        return { ...prev, [category]: currentList.filter(item => item !== option) };
+      if (currentList.includes(label)) {
+        return { ...prev, [category]: currentList.filter(item => item !== label) };
       } else {
-        return { ...prev, [category]: [...currentList, option] };
+        return { ...prev, [category]: [...currentList, label] };
       }
     });
-    setPreviewImgs(prev => ({ ...prev, [category]: imgPath }));
   };
 
-  const setSingleOption = (category, option, imgPath) => {
-    setConfig(prev => ({ ...prev, [category]: option }));
-    setPreviewImgs(prev => ({ ...prev, [category]: imgPath }));
-  };
+  // ─── 各空間選配品項資料 ───
 
-  // ─── Options Data ───
-  const tvCabinetOptions = [
-    { label: '落地型', desc: '經典收納，適合多設備家庭', price: '+ NT$ 25,000', img: '/customization/tv-cabinet-floor.jpg' },
-    { label: '懸浮型', desc: '極簡懸空設計，展現主牆大氣', price: '+ NT$ 38,000', img: '/customization/tv-cabinet-wall.jpg' },
-    { label: '無電視櫃', desc: '保留最大空間尺度，極致從簡', price: '+ NT$ 0', img: '/customization/tv-cabinet-none.jpg' }
+  // Section 1: 客廳空間
+  const livingRoomOptions = [
+    {
+      label: '電視櫃懸吊式',
+      desc: '綠建材系統板，連供帶料含金屬滑軌零件',
+      price: 30000
+    },
+    {
+      label: '玄關展示櫃',
+      desc: '綠建材系統板，連工帶料，內含伸縮滑軌金屬掛衣區',
+      price: 37500
+    }
   ];
 
-  const livingSideOptions = [
-    { label: '鞋櫃', desc: '玄關延伸收納，機能與美感兼具', price: '+ NT$ 18,000', img: '/presale/p4_cover.png' },
-    { label: '側櫃', desc: '展示與收納結合，豐富端景', price: '+ NT$ 15,000', img: '/presale/p5_cover.png' }
+  // Section 2: 書房 / 次臥空間
+  const studyRoomOptions = [
+    {
+      label: '吊櫃含背板支撐',
+      desc: '綠建材系統板，連供帶料含所有金屬內扣件',
+      price: 18000
+    },
+    {
+      label: '書桌',
+      desc: '寬153cm × 深60cm，檯面加厚板25mm，連工帶料含下支撐背板18mm',
+      price: 16000
+    },
+    {
+      label: '衣櫃（吊衣＋抽屜）',
+      desc: '綠建材系統板，連工帶料含內建金屬配件滑軌',
+      price: 33000
+    },
+    {
+      label: '衣櫃（純吊衣櫃）',
+      desc: '綠建材系統板，連工帶料含內建金屬配件',
+      price: 30000
+    }
   ];
 
-  const masterBedOptions = [
-    { label: '衣櫃', desc: '頂天立地系統衣櫃，最大化收納', price: '+ NT$ 45,000', img: '/presale/p6_cover.png' },
-    { label: '化妝台', desc: '結合燈光與鏡面，專屬梳化空間', price: '+ NT$ 12,000', img: '/presale/p7_cover.png' }
+  // Section 3: 餐廳空間
+  const diningRoomOptions = [
+    {
+      label: '餐邊櫃',
+      desc: '綠建材系統板（詳細規格請洽詢）',
+      price: null // 尚未報價
+    },
+    {
+      label: '餐邊吊櫃＋開放吊櫃',
+      desc: '綠建材系統板，連工帶料加背板支撐架',
+      price: 15000
+    }
   ];
 
-  const secondBedOptions = [
-    { label: '衣櫃', desc: '基礎衣物收納規劃', price: '+ NT$ 35,000', img: '/presale/p8_cover.png' },
-    { label: '書櫃', desc: '閱讀與展示機能整合', price: '+ NT$ 18,000', img: '/presale/p9_cover.png' }
+  // Section 4: 更衣室
+  const dressingRoomOptions = [
+    {
+      label: '4米8開放吊衣收納櫃',
+      desc: '綠建材系統板，連工帶料，含所有金屬零件、滑軌、背板支撐架',
+      price: 107500
+    }
   ];
 
-  const kitchenOptions = [
-    { label: '吧檯桌', desc: '延伸輕食吧檯，凝聚家人情感', price: '+ NT$ 28,000', img: '/presale/p1_cover.png' },
-    { label: '餐邊櫃', desc: '電器與備品收納，解放流理台', price: '+ NT$ 32,000', img: '/presale/p2_cover.png' }
-  ];
-
-  // Calculate estimated total based on selections
+  // ─── 價格計算 ───
   const calculateTotal = () => {
     let total = 0;
+    const allSections = [
+      { choices: config.livingRoom, options: livingRoomOptions },
+      { choices: config.studyRoom, options: studyRoomOptions },
+      { choices: config.diningRoom, options: diningRoomOptions },
+      { choices: config.dressingRoom, options: dressingRoomOptions }
+    ];
 
-    // Add TV Cabinet
-    const selectedTv = tvCabinetOptions.find(o => o.label === config.tvCabinet);
-    if (selectedTv) total += parseInt(selectedTv.price.replace(/\D/g, ''));
-
-    // Helper to calculate array totals
-    const sumArray = (choices, optionsData) => {
-      return choices.reduce((sum, choice) => {
-        const option = optionsData.find(o => o.label === choice);
-        return sum + (option ? parseInt(option.price.replace(/\D/g, '')) : 0);
-      }, 0);
-    };
-
-    total += sumArray(config.livingRoomSide, livingSideOptions);
-    total += sumArray(config.masterBed, masterBedOptions);
-    total += sumArray(config.secondBed, secondBedOptions);
-    total += sumArray(config.kitchen, kitchenOptions);
+    allSections.forEach(({ choices, options }) => {
+      choices.forEach(choice => {
+        const opt = options.find(o => o.label === choice);
+        if (opt && opt.price !== null) {
+          total += opt.price;
+        }
+      });
+    });
 
     return total;
   };
-  // Derive the image for livingRoomSide based on config
-  const getLivingRoomSideImage = () => {
-    const tvTypeMap = {
-      '落地型': 'floor',
-      '懸浮型': 'wall',
-      '無電視櫃': 'none'
-    };
-    const currentTvType = tvTypeMap[config.tvCabinet] || 'wall';
 
-    const hasShoe = config.livingRoomSide.includes('鞋櫃');
-    const hasSide = config.livingRoomSide.includes('側櫃');
-
-    let suffix = '';
-    if (hasShoe && hasSide) suffix = '-shoeside';
-    else if (hasShoe) suffix = '-shoe';
-    else if (hasSide) suffix = '-side';
-
-    // If no side cabinets selected, show the base TV cabinet
-    if (!suffix) return `/customization/tv-cabinet-${currentTvType}.jpg`;
-
-    return `/customization/tv-cabinet-${currentTvType}${suffix}.jpg`;
+  // 檢查是否有選到「洽詢報價」的項目
+  const hasUnpricedItem = () => {
+    const allSections = [
+      { choices: config.livingRoom, options: livingRoomOptions },
+      { choices: config.studyRoom, options: studyRoomOptions },
+      { choices: config.diningRoom, options: diningRoomOptions },
+      { choices: config.dressingRoom, options: dressingRoomOptions }
+    ];
+    return allSections.some(({ choices, options }) =>
+      choices.some(choice => {
+        const opt = options.find(o => o.label === choice);
+        return opt && opt.price === null;
+      })
+    );
   };
 
-  // Derive the image for masterBed based on config
-  const getMasterBedImage = () => {
-    const hasWardrobe = config.masterBed.includes('衣櫃');
-    const hasVanity = config.masterBed.includes('化妝台');
-    
-    if (hasWardrobe && hasVanity) return '/customization/masterbed-wardrobe-vanity.jpg';
-    if (hasWardrobe) return '/customization/masterbed-wardrobe.jpg';
-    if (hasVanity) return '/customization/masterbed-vanity.jpg';
-    
-    return '/customization/masterbed-base.jpg';
+  // ─── 格式化價格顯示 ───
+  const formatPrice = (price) => {
+    if (price === null) return '洽詢報價';
+    return `+ NT$ ${price.toLocaleString()}`;
   };
 
-  // Derive the image for secondBed based on config
-  const getSecondBedImage = () => {
-    const hasWardrobe = config.secondBed.includes('衣櫃');
-    const hasBookcase = config.secondBed.includes('書櫃');
-    
-    if (hasWardrobe && hasBookcase) return '/customization/secondbed-wardrobe-bookcase.jpg';
-    if (hasWardrobe) return '/customization/secondbed-wardrobe.jpg';
-    if (hasBookcase) return '/customization/secondbed-bookcase.jpg';
-    
-    return '/customization/secondbed-base.jpg';
-  };
+  // ─── 渲染選項卡片 ───
+  const renderOptionCards = (category, options) => (
+    <div className="options-grid">
+      {options.map(opt => {
+        const isActive = config[category].includes(opt.label);
+        return (
+          <button
+            key={opt.label}
+            className={`option-card ${isActive ? 'active' : ''}`}
+            onClick={() => toggleOption(category, opt.label)}
+          >
+            <div className="option-card-content">
+              <span className="option-label">{opt.label}</span>
+              <span className="option-desc">{opt.desc}</span>
+            </div>
+            <span className={`option-price ${opt.price === null ? 'inquiry' : ''}`}>
+              {formatPrice(opt.price)}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
 
-  // Derive the image for kitchen based on config
-  const getKitchenImage = () => {
-    const hasBar = config.kitchen.includes('吧檯桌');
-    const hasSideboard = config.kitchen.includes('餐邊櫃');
-    
-    if (hasBar && hasSideboard) return '/customization/kitchen-bar-sideboard.jpg';
-    if (hasBar) return '/customization/kitchen-bar.jpg';
-    if (hasSideboard) return '/customization/kitchen-sideboard.jpg';
-    
-    return '/customization/kitchen-base.jpg';
-  };
+  // ─── 空間 Section 資料 ───
+  const sections = [
+    {
+      key: 'livingRoom',
+      badge: '客廳空間',
+      title: '客廳系統櫃訂製',
+      img: '/customization/nordic/living-room.jpg',
+      options: livingRoomOptions
+    },
+    {
+      key: 'studyRoom',
+      badge: '書房 / 次臥空間',
+      title: '書房收納機能訂製',
+      img: '/customization/nordic/study-room.png',
+      options: studyRoomOptions
+    },
+    {
+      key: 'diningRoom',
+      badge: '餐廳空間',
+      title: '餐廳櫃體訂製',
+      img: '/customization/nordic/dining-room.jpg',
+      options: diningRoomOptions
+    },
+    {
+      key: 'dressingRoom',
+      badge: '更衣室',
+      title: '更衣室收納訂製',
+      img: '/customization/nordic/dressing-room.jpg',
+      options: dressingRoomOptions
+    }
+  ];
 
   return (
     <div className="configurator-wrapper">
@@ -171,182 +209,26 @@ function SmartCustomizationNordic() {
 
       <main className="configurator-main vertical-layout">
 
-        {/* Section 1: 客廳電視牆 */}
-        <section className="config-row">
-          <div className="config-row-left">
-            <div className="preview-image-box">
-              <img
-                key={previewImgs.tvCabinet}
-                src={previewImgs.tvCabinet}
-                alt="裝修預覽圖"
-                className="preview-img"
-              />
-              <div className="preview-badge">客廳空間</div>
+        {sections.map((section) => (
+          <section className="config-row" key={section.key}>
+            <div className="config-row-left">
+              <div className="preview-image-box">
+                <img
+                  src={section.img}
+                  alt={section.badge}
+                  className="preview-img"
+                />
+                <div className="preview-badge">{section.badge}</div>
+              </div>
             </div>
-          </div>
-          <div className="config-row-right">
-            <h2 className="config-section-title">電視櫃訂製 <span className="req">*單選</span></h2>
-            <div className="options-grid">
-              {tvCabinetOptions.map(opt => (
-                <button
-                  key={opt.label}
-                  className={`option-card ${config.tvCabinet === opt.label ? 'active' : ''}`}
-                  onClick={() => setSingleOption('tvCabinet', opt.label, opt.img)}
-                >
-                  <div className="option-card-content">
-                    <span className="option-label">{opt.label}</span>
-                    <span className="option-desc">{opt.desc}</span>
-                  </div>
-                  <span className="option-price">{opt.price}</span>
-                </button>
-              ))}
+            <div className="config-row-right">
+              <h2 className="config-section-title">
+                {section.title} <span className="opt">可複選</span>
+              </h2>
+              {renderOptionCards(section.key, section.options)}
             </div>
-          </div>
-        </section>
-
-        {/* Section 2: 客廳旁櫃體 */}
-        <section className="config-row">
-          <div className="config-row-left">
-            <div className="preview-image-box">
-              <img
-                key={getLivingRoomSideImage()}
-                src={getLivingRoomSideImage()}
-                alt="裝修預覽圖"
-                className="preview-img"
-              />
-              <div className="preview-badge">客廳旁邊櫃體</div>
-            </div>
-          </div>
-          <div className="config-row-right">
-            <h2 className="config-section-title">電視旁櫃體 <span className="opt">可複選</span></h2>
-            <div className="options-grid">
-              {livingSideOptions.map(opt => {
-                const isActive = config.livingRoomSide.includes(opt.label);
-                return (
-                  <button
-                    key={opt.label}
-                    className={`option-card ${isActive ? 'active' : ''}`}
-                    onClick={() => toggleArrayOption('livingRoomSide', opt.label, opt.img)}
-                  >
-                    <div className="option-card-content">
-                      <span className="option-label">{opt.label}</span>
-                      <span className="option-desc">{opt.desc}</span>
-                    </div>
-                    <span className="option-price">{opt.price}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Section 3: 主臥 */}
-        <section className="config-row">
-          <div className="config-row-left">
-            <div className="preview-image-box">
-              <img
-                key={getMasterBedImage()}
-                src={getMasterBedImage()}
-                alt="裝修預覽圖"
-                className="preview-img"
-              />
-              <div className="preview-badge">主臥空間</div>
-            </div>
-          </div>
-          <div className="config-row-right">
-            <h2 className="config-section-title">主臥空間機能 <span className="opt">可複選</span></h2>
-            <div className="options-grid">
-              {masterBedOptions.map(opt => {
-                const isActive = config.masterBed.includes(opt.label);
-                return (
-                  <button
-                    key={opt.label}
-                    className={`option-card ${isActive ? 'active' : ''}`}
-                    onClick={() => toggleArrayOption('masterBed', opt.label, opt.img)}
-                  >
-                    <div className="option-card-content">
-                      <span className="option-label">{opt.label}</span>
-                      <span className="option-desc">{opt.desc}</span>
-                    </div>
-                    <span className="option-price">{opt.price}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Section 4: 次臥 */}
-        <section className="config-row">
-          <div className="config-row-left">
-            <div className="preview-image-box">
-              <img
-                key={getSecondBedImage()}
-                src={getSecondBedImage()}
-                alt="裝修預覽圖"
-                className="preview-img"
-              />
-              <div className="preview-badge">次臥空間</div>
-            </div>
-          </div>
-          <div className="config-row-right">
-            <h2 className="config-section-title">次臥空間機能 <span className="opt">可複選</span></h2>
-            <div className="options-grid">
-              {secondBedOptions.map(opt => {
-                const isActive = config.secondBed.includes(opt.label);
-                return (
-                  <button
-                    key={opt.label}
-                    className={`option-card ${isActive ? 'active' : ''}`}
-                    onClick={() => toggleArrayOption('secondBed', opt.label, opt.img)}
-                  >
-                    <div className="option-card-content">
-                      <span className="option-label">{opt.label}</span>
-                      <span className="option-desc">{opt.desc}</span>
-                    </div>
-                    <span className="option-price">{opt.price}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Section 5: 餐廚 */}
-        <section className="config-row">
-          <div className="config-row-left">
-            <div className="preview-image-box">
-              <img
-                key={getKitchenImage()}
-                src={getKitchenImage()}
-                alt="裝修預覽圖"
-                className="preview-img"
-              />
-              <div className="preview-badge">餐廚空間</div>
-            </div>
-          </div>
-          <div className="config-row-right">
-            <h2 className="config-section-title">餐廚附加機能 <span className="opt">可複選</span></h2>
-            <div className="options-grid">
-              {kitchenOptions.map(opt => {
-                const isActive = config.kitchen.includes(opt.label);
-                return (
-                  <button
-                    key={opt.label}
-                    className={`option-card ${isActive ? 'active' : ''}`}
-                    onClick={() => toggleArrayOption('kitchen', opt.label, opt.img)}
-                  >
-                    <div className="option-card-content">
-                      <span className="option-label">{opt.label}</span>
-                      <span className="option-desc">{opt.desc}</span>
-                    </div>
-                    <span className="option-price">{opt.price}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+          </section>
+        ))}
 
         {/* Spacer for bottom bar */}
         <div className="configurator-bottom-spacer" />
@@ -358,9 +240,11 @@ function SmartCustomizationNordic() {
         <div className="summary-left">
           <span className="summary-label">預估選配總計：</span>
           <span className="summary-price">NT$ {calculateTotal().toLocaleString()}</span>
+          {hasUnpricedItem() && (
+            <span className="summary-note">（含洽詢報價項目）</span>
+          )}
         </div>
         <div className="summary-right">
-          <button className="summary-btn outline">儲存配置清單</button>
           <button className="summary-btn primary">預約諮詢此方案</button>
         </div>
       </div>

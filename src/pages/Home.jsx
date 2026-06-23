@@ -25,6 +25,13 @@ const SERVICES = [
   },
 ];
 
+// 團隊蜂巢排列：3-2-3 交錯式（中間列嵌入上下列的凹槽，左右對稱）
+const TEAM_ROWS = [
+  ['/presale/p1_cover.png', '/presale/p2_cover.png', '/presale/p3_cover.png'],
+  ['/presale/p4_cover.png', '/presale/p5_cover_fixed.png'],
+  ['/team/member1.jpg', '/team/member2.jpg', '/team/member3.jpg'],
+];
+
 function Home() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -109,7 +116,7 @@ function Home() {
               </blockquote>
               <p className="wb-body">
                 我們深信，好的設計不只是視覺的堆疊，更是對生活細節的深刻理解。<br /><br />
-                泰金閣團隊致力於將您的居家想像化為現實，以『智能訂製、全屋裝修』為核心，
+                東泰金閣團隊致力於將您的居家想像化為現實，以『智能訂製、全屋裝修』為核心，
                 從格局動線的雕琢到智能系統的整合，為您打造極具質感且充滿溫度的現代空間。
                 我們保留了純粹的極簡美學與寂靜的色彩搭配，將空間的主導權交還給生活本身。
               </p>
@@ -146,11 +153,18 @@ function Home() {
         <section className="hexagon-section reveal">
           <h2 className="hexagon-section-title text-center">我們的團隊</h2>
           <div className="hexagon-grid">
-            {[1, 2, 3, 4, 5].map((num, i) => (
-              <div className="hexagon" key={i}>
-                <img src={`/presale/p${num}_cover.png`} alt={`案例 ${i + 1}`} loading="lazy" />
-              </div>
-            ))}
+            {TEAM_ROWS.map((row, ri) => {
+              const base = TEAM_ROWS.slice(0, ri).reduce((sum, r) => sum + r.length, 0);
+              return (
+                <div className="hexagon-row" key={ri}>
+                  {row.map((src, ci) => (
+                    <div className="hexagon" key={src}>
+                      <img src={src} alt={`團隊成員 ${base + ci + 1}`} loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
           </div>
         </section>
 
