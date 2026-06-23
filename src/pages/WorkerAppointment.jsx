@@ -56,8 +56,14 @@ export const WorkerAppointment = () => {
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     if (!serviceId || !templateId || !publicKey) {
-      // 若未設定環境變數，直接預覽成功畫面（前端展示模式）
-      console.log('未偵測到 EmailJS 金鑰，切換為展示模式。表單提交資料：', formData);
+      const missingKeys = [];
+      if (!serviceId) missingKeys.push('VITE_EMAILJS_SERVICE_ID');
+      if (!templateId) missingKeys.push('VITE_EMAILJS_TEMPLATE_ID');
+      if (!publicKey) missingKeys.push('VITE_EMAILJS_PUBLIC_KEY');
+      
+      console.warn(`⚠️ 未偵測到 EmailJS 金鑰，缺少變數：[${missingKeys.join(', ')}]。已切換為展示模式。`);
+      console.log('表單提交資料：', formData);
+      
       setIsSending(false);
       setIsSubmitted(true);
       return;
@@ -65,17 +71,18 @@ export const WorkerAppointment = () => {
 
     // 將 formData 轉換為符合 EmailJS template 預期的格式
     const templateParams = {
-      workerTypes: formData.workerTypes.join('、'),
-      location: formData.location,
-      areaSize: formData.areaSize,
-      hasDesignDrawings: formData.hasDesignDrawings,
-      expectedTime: formData.expectedTime,
-      contactName: formData.contactName,
-      contactPhone: formData.contactPhone,
-      email: formData.email,
+      inquiry_type: '工班預約',
+      client_name: formData.contactName,
+      client_phone: formData.contactPhone,
+      client_email: formData.email,
+      project_location: formData.location,
+      project_size_ping: formData.areaSize,
+      has_design_blueprint: formData.hasDesignDrawings,
+      expected_start_date: formData.expectedTime,
+      worker_types: formData.workerTypes.join('、'),
       remarks: formData.remarks || '無',
-      reply_to: formData.email, // 可以將回信地址設為使用者的 email
-      admin_email: import.meta.env.VITE_EMAILJS_ADMIN_EMAIL // 給管理端範本的收件信箱
+      reply_to: formData.email,
+      admin_email: import.meta.env.VITE_EMAILJS_ADMIN_EMAIL
     };
 
     // 準備要發送的 Promise 陣列

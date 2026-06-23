@@ -146,26 +146,36 @@ export default function Refurbishment() {
     setIsSending(true)
 
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
-    const templateId = import.meta.env.VITE_EMAILJS_RENOVATION_TEMPLATE_ID
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
     const adminTemplateId = import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
-    // 若未設定 EmailJS 環境變數，切換為展示模式
+    // 若未設定 EmailJS 環境變數，切換為展示模式，並印出缺少的變數
     if (!serviceId || !templateId || !publicKey) {
-      console.log('未偵測到 EmailJS 金鑰，切換為展示模式。表單提交資料：', formData)
+      const missingKeys = []
+      if (!serviceId) missingKeys.push('VITE_EMAILJS_SERVICE_ID')
+      if (!templateId) missingKeys.push('VITE_EMAILJS_TEMPLATE_ID')
+      if (!publicKey) missingKeys.push('VITE_EMAILJS_PUBLIC_KEY')
+      
+      console.warn(`⚠️ 未偵測到 EmailJS 金鑰，缺少變數：[${missingKeys.join(', ')}]。已切換為展示模式。`)
+      console.log('表單提交資料：', formData)
+      
       setIsSending(false)
       setIsSubmitted(true)
       return
     }
 
     const templateParams = {
+      inquiry_type: '老屋翻新',
+      client_name: formData.client_name,
+      client_phone: formData.client_phone,
+      client_email: formData.client_email,
       project_location: formData.project_location,
       project_size_ping: formData.project_size_ping,
       has_design_blueprint: formData.has_design_blueprint,
       expected_start_date: formData.expected_start_date,
-      client_name: formData.client_name,
-      client_phone: formData.client_phone,
-      client_email: formData.client_email,
+      worker_types: '無 (全屋翻新)',
+      remarks: '無',
       reply_to: formData.client_email,
       admin_email: import.meta.env.VITE_EMAILJS_ADMIN_EMAIL,
     }
